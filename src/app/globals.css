@@ -3,9 +3,16 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+#main-root {
+	height: calc(100vh - 64px - 36px);
+	position: relative;
+	top: 64px;
+}
+
+/*
 a,
 a:visited,
 a:link {
@@ -24,9 +31,7 @@ a:link {
 	}
 
 	body {
-		/* color: #faf9f9; /* Cultured */
 		color: rgb(248, 248, 248);
 		background: #0c0c0c;
-		/* Black Chocolate */
 	}
-}
+} */
