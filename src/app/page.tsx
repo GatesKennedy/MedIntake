@@ -1,10 +1,11 @@
 'use client';
-import { Box, Center } from '@chakra-ui/react';
+import MultiStep from '@/components/MultiStep';
+import { Box, Center, HStack, VStack } from '@chakra-ui/react';
 
 export default function Home() {
 	return (
 		<Center>
-			<Box>Hello, seedling...</Box>
+			<MultiStep />
 		</Center>
 	);
 }
