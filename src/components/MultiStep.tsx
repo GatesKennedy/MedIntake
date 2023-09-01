@@ -7,13 +7,63 @@ import FormIdentity from './FormIdentity';
 import FormQuestions from './FormQuestions';
 import FormResults from './FormResults';
 import { questionData } from '@/data/questionData';
+import FormReview from './FormReview';
+
+export type HistoryData = {
+	isSmoker?: boolean;
+	isOver65?: boolean;
+	isDiabetic?: boolean;
+	isMedicated?: boolean;
+	hasDentures?: boolean;
+	hasVascularIssue?: boolean;
+	hasApnea?: boolean;
+	drinksCoffee?: boolean;
+	hasGumDisease?: boolean;
+	isCleaned?: boolean;
+};
+export type IdentityData = {
+	firstName?: string;
+	lastName?: string;
+	email?: string;
+};
 
 export const MultiStep = () => {
 	const toast = useToast();
 	const [step, setStep] = useState(1);
+	const [inProcess, setInProcess] = useState(false);
+	const [isSent, setIsSent] = useState(false);
 	const [progress, setProgress] = useState(33.33);
+	//!!! TODO: RESOLVE STATE
+	const [identityData, setIdentityData] = useState<IdentityData>({
+		firstName: undefined,
+		lastName: undefined,
+		email: undefined,
+	});
+	const [historyData, setHistoryData] = useState<HistoryData>({
+		isSmoker: false,
+		isOver65: false,
+		isDiabetic: false,
+		isMedicated: false,
+		hasDentures: false,
+		hasApnea: false,
+		drinksCoffee: false,
+		hasGumDisease: false,
+		isCleaned: false,
+	});
 	const formWidth = 'lg';
 
+	const handleSubmit = async () => {
+		// SpinnerOn setInProcess()
+		// Send Email
+		// handle Response
+		toast({
+			title: 'Great! Thank you.',
+			description: "We've sent your results to the email you provided.",
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	};
 	return (
 		<>
 			<Box
@@ -34,15 +84,28 @@ export const MultiStep = () => {
 				></Progress>
 
 				{/* FORM BODY */}
-				{step === 1 ? (
-					<FormIdentity width={formWidth} />
-				) : step === 2 ? (
-					<FormQuestions
+				{!isSent ? (
+					step === 1 ? (
+						<FormIdentity width={formWidth} />
+					) : step === 2 ? (
+						<FormQuestions
+							width={formWidth}
+							questionData={questionData}
+						/>
+					) : (
+						<FormReview
+							width={formWidth}
+							historyData={historyData}
+							identityData={identityData}
+						/>
+					)
+				) : (
+					<FormResults
 						width={formWidth}
+						historyData={historyData}
+						identityData={identityData}
 						questionData={questionData}
 					/>
-				) : (
-					<FormResults width={formWidth} />
 				)}
 
 				{/* BTTN GROUP */}
@@ -90,16 +153,7 @@ export const MultiStep = () => {
 								w='7rem'
 								colorScheme='red'
 								variant='solid'
-								onClick={() => {
-									toast({
-										title: 'Account created.',
-										description:
-											"We've created your account for you.",
-										status: 'success',
-										duration: 3000,
-										isClosable: true,
-									});
-								}}
+								onClick={() => handleSubmit}
 							>
 								Submit
 							</Button>

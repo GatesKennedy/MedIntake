@@ -1,19 +1,18 @@
-import {
-	Heading,
-	SimpleGrid,
-	FormControl,
-	GridItem,
-	FormLabel,
-	InputGroup,
-	InputLeftAddon,
-	Input,
-	Textarea,
-	FormHelperText,
-	Container,
-} from '@chakra-ui/react';
+import { Heading, Text, Container, Box } from '@chakra-ui/react';
 import React from 'react';
+import { HistoryData, IdentityData } from './MultiStep';
+import { Question, questionData } from '@/data/questionData';
 
-const FormResults = (props: { width: string }) => {
+export const Result = (props: { question: Question }) => {
+	return <div>Result</div>;
+};
+
+const FormResults = (props: {
+	width: string;
+	historyData: HistoryData;
+	identityData: IdentityData;
+	questionData: Question[];
+}) => {
 	return (
 		<Container w={props.width}>
 			<Heading
@@ -23,73 +22,23 @@ const FormResults = (props: { width: string }) => {
 			>
 				Complete!
 			</Heading>
-			<SimpleGrid
-				columns={1}
-				spacing={6}
-			>
-				<FormControl
-					as={GridItem}
-					colSpan={[3, 2]}
-				>
-					<FormLabel
-						fontSize='sm'
-						fontWeight='md'
-						color='gray.700'
-						_dark={{
-							color: 'gray.50',
-						}}
-					>
-						Website
-					</FormLabel>
-					<InputGroup size='sm'>
-						<InputLeftAddon
-							bg='gray.50'
-							_dark={{
-								bg: 'gray.800',
-							}}
-							color='gray.500'
-							rounded='md'
-						>
-							http://
-						</InputLeftAddon>
-						<Input
-							type='tel'
-							placeholder='www.example.com'
-							focusBorderColor='brand.400'
-							rounded='md'
-						/>
-					</InputGroup>
-				</FormControl>
-
-				<FormControl
-					id='email'
-					mt={1}
-				>
-					<FormLabel
-						fontSize='sm'
-						fontWeight='md'
-						color='gray.700'
-						_dark={{
-							color: 'gray.50',
-						}}
-					>
-						About
-					</FormLabel>
-					<Textarea
-						placeholder='you@example.com'
-						rows={3}
-						shadow='sm'
-						focusBorderColor='brand.400'
-						fontSize={{
-							sm: 'sm',
-						}}
-					/>
-					<FormHelperText>
-						Brief description for your profile. URLs are
-						hyperlinked.
-					</FormHelperText>
-				</FormControl>
-			</SimpleGrid>
+			<Box>
+				<Text>Thank you {props.identityData.firstName}.</Text>
+				<Text>
+					An email with your results has been sent to{' '}
+					{props.identityData.email}.
+				</Text>
+				<Text>
+					Before your next visit, please review the information
+					provided for each of your responses. You can review this
+					information below or in the email we&#39;ve sent.
+				</Text>
+			</Box>
+			{questionData.map((question, index) => (
+				<>
+					<Text>result {index}</Text>
+				</>
+			))}
 		</Container>
 	);
 };

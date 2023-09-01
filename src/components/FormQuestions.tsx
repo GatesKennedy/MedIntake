@@ -2,13 +2,10 @@ import { Question } from '@/data/questionData';
 import {
 	Heading,
 	FormControl,
-	GridItem,
 	FormLabel,
-	Input,
 	Container,
 	Switch,
 	Divider,
-	Box,
 	HStack,
 	Text,
 	Fade,
@@ -19,13 +16,13 @@ const Question = (props: { questionData: Question; index: number }) => {
 	const [answer, setAnswer] = useState(false);
 	const [showAnswer, setShowAnswer] = useState(false);
 
-	function toggleShowAnswer() {
-		setShowAnswer(!showAnswer);
+	function hideAnswer() {
+		setShowAnswer(false);
 	}
 	function onToggle() {
 		setAnswer(!answer);
 		setShowAnswer(true);
-		setTimeout(toggleShowAnswer, 2000);
+		setTimeout(hideAnswer, 2000);
 	}
 	return (
 		<>
