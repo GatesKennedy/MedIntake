@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import {
 	Heading,
 	Flex,
@@ -13,8 +13,15 @@ import {
 	Container,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
+import { IFormData, IdentityData } from './MultiStep';
+import { UseFormRegister, FieldValues } from 'react-hook-form';
 
-const FormIdentity = (props: { width: string }) => {
+const FormIdentity = (props: {
+	width: string;
+	data: IdentityData;
+	register: UseFormRegister<IFormData>;
+	setData: Dispatch<SetStateAction<IdentityData>>;
+}) => {
 	return (
 		<Container w={props.width}>
 			<Heading
@@ -28,30 +35,45 @@ const FormIdentity = (props: { width: string }) => {
 			<Flex>
 				<FormControl
 					isRequired
+					// isInvalid={errors.name}
 					mr='5%'
 				>
 					<FormLabel
-						htmlFor='first-name'
+						htmlFor='firstName'
 						fontWeight={'normal'}
 					>
 						First name
 					</FormLabel>
 					<Input
-						id='first-name'
+						id='firstName'
 						placeholder='First name'
+						{...props.register('firstName', {
+							required: true,
+							minLength: {
+								value: 2,
+								message: 'Minimum length should be 2',
+							},
+						})}
 					/>
 				</FormControl>
 
 				<FormControl isRequired>
 					<FormLabel
-						htmlFor='last-name'
+						htmlFor='lastName'
 						fontWeight={'normal'}
 					>
 						Last name
 					</FormLabel>
 					<Input
-						id='last-name'
-						placeholder='First name'
+						id='lastName'
+						placeholder='Last name'
+						{...props.register('lastName', {
+							required: 'This is required',
+							minLength: {
+								value: 2,
+								message: 'Minimum length should be 2',
+							},
+						})}
 					/>
 				</FormControl>
 			</Flex>
@@ -69,6 +91,13 @@ const FormIdentity = (props: { width: string }) => {
 					<Input
 						id='email'
 						type='email'
+						{...props.register('email', {
+							required: 'Email is required',
+							minLength: {
+								value: 6,
+								message: 'Miniumn length is 6 characters',
+							},
+						})}
 					/>
 					<InputRightElement>
 						<Tooltip

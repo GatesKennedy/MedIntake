@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import FormIdentity from './FormIdentity';
-import FormQuestions from './FormQuestions';
+import FormQuestions from './FormHistory';
 import FormResults from './FormResults';
 import { questionData } from '@/data/questionData';
 import FormReview from './FormReview';
 import { RepeatIcon } from '@chakra-ui/icons';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 export type HistoryData = {
 	isSmoker?: boolean;
@@ -34,14 +35,25 @@ export type IdentityData = {
 	lastName?: string;
 	email?: string;
 };
+export interface IFormData {
+	firstName: string;
+	lastName: string;
+	email: string;
+}
 
 export const MultiStep = () => {
+	const formWidth = 'lg';
 	const toast = useToast();
 	const [step, setStep] = useState(1);
 	const [inProcess, setInProcess] = useState(false);
 	const [isSent, setIsSent] = useState(false);
 	const [progress, setProgress] = useState(33.33);
 	//!!! TODO: RESOLVE STATE
+	const [formData, setFormData] = useState<IFormData>({
+		firstName: 'dart',
+		lastName: 'mithra',
+		email: 'chunks',
+	});
 	const [identityData, setIdentityData] = useState<IdentityData>({
 		firstName: undefined,
 		lastName: undefined,
@@ -58,9 +70,27 @@ export const MultiStep = () => {
 		hasGumDisease: false,
 		isCleaned: false,
 	});
-	const formWidth = 'lg';
 
-	const handleSubmit = () => {
+	//	Reach Hook Form
+	const {
+		handleSubmit,
+		register,
+		formState: { errors, isSubmitting },
+	} = useForm<IFormData>();
+
+	const onSubmit: SubmitHandler<IFormData> = (values) => {
+		setFormData(values);
+		return new Promise<void>((resolve) => {
+			// alert(JSON.stringify(values, null, 2));
+			setTimeout(() => {
+				alert(JSON.stringify(values, null, 2));
+				resolve();
+			}, 3000);
+		});
+	};
+
+	// Work Flows
+	const handleConfirm = () => {
 		console.log('handleSubmit()...');
 		// SpinnerOn setInProcess()
 		// Send Email
@@ -86,6 +116,7 @@ export const MultiStep = () => {
 				p={6}
 				m='10px auto'
 				as='form'
+				onSubmit={handleSubmit(onSubmit)}
 			>
 				{isSent ? (
 					<>
@@ -128,9 +159,15 @@ export const MultiStep = () => {
 							mx='5%'
 							isAnimated
 						></Progress>
+
 						{/* FORM BODY */}
 						{step === 1 ? (
-							<FormIdentity width={formWidth} />
+							<FormIdentity
+								width={formWidth}
+								data={identityData}
+								register={register}
+								setData={setIdentityData}
+							/>
 						) : step === 2 ? (
 							<FormQuestions
 								width={formWidth}
@@ -139,8 +176,7 @@ export const MultiStep = () => {
 						) : (
 							<FormReview
 								width={formWidth}
-								historyData={historyData}
-								identityData={identityData}
+								formData={formData}
 							/>
 						)}
 
@@ -157,7 +193,7 @@ export const MultiStep = () => {
 									<Button
 										onClick={() => {
 											setStep(step - 1);
-											setProgress(progress - 33.33);
+											setProgress(progress - 30);
 										}}
 										isDisabled={step === 1}
 										colorScheme='teal'
@@ -167,22 +203,35 @@ export const MultiStep = () => {
 									>
 										Back
 									</Button>
-									<Button
-										isDisabled={step === 3}
-										onClick={() => {
-											setStep(step + 1);
-											if (step === 3) {
-												setProgress(100);
-											} else {
-												setProgress(progress + 33.33);
-											}
-										}}
-										colorScheme='teal'
-										variant='outline'
-										w='7rem'
-									>
-										Next
-									</Button>
+									{step === 1 ? (
+										<Button
+											// isDisabled={step === 3}
+											onClick={() => {
+												setStep(step + 1);
+												setProgress(progress + 30);
+											}}
+											colorScheme='teal'
+											variant='outline'
+											w='7rem'
+										>
+											Next
+										</Button>
+									) : (
+										<Button
+											type={'submit'}
+											isDisabled={step === 3}
+											// isLoading={isSubmitting} !!! TODO
+											onClick={() => {
+												setStep(step + 1);
+												setProgress(progress + 30);
+											}}
+											colorScheme='teal'
+											variant='outline'
+											w='7rem'
+										>
+											Review
+										</Button>
+									)}
 								</Flex>
 
 								{step === 3 ? (
@@ -190,7 +239,7 @@ export const MultiStep = () => {
 										colorScheme='red'
 										variant='solid'
 										w='7rem'
-										onClick={() => handleSubmit()}
+										onClick={handleConfirm}
 									>
 										Submit
 									</Button>

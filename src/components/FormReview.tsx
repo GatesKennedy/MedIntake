@@ -1,12 +1,11 @@
-import { Heading, SimpleGrid, Container } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Container, GridItem } from '@chakra-ui/react';
 import React from 'react';
-import { HistoryData, IdentityData } from './MultiStep';
+import { IFormData } from './MultiStep';
 
-const FormReview = (props: {
-	width: string;
-	historyData: HistoryData;
-	identityData: IdentityData;
-}) => {
+const FormReview = (props: { width: string; formData: IFormData }) => {
+	for (const [key, value] of Object.entries(props.formData)) {
+		console.log(`${key}: ${value}`);
+	}
 	return (
 		<Container w={props.width}>
 			<Heading
@@ -19,7 +18,11 @@ const FormReview = (props: {
 			<SimpleGrid
 				columns={1}
 				spacing={6}
-			></SimpleGrid>
+			>
+				{Object.keys(props.formData).map((key, index) => {
+					return <GridItem key={index}>{key}</GridItem>;
+				})}
+			</SimpleGrid>
 		</Container>
 	);
 };
