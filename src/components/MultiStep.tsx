@@ -1,13 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { Progress, Box, ButtonGroup, Button, Flex } from '@chakra-ui/react';
+import {
+	Progress,
+	Box,
+	ButtonGroup,
+	Button,
+	Flex,
+	Text,
+} from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import FormIdentity from './FormIdentity';
 import FormQuestions from './FormQuestions';
 import FormResults from './FormResults';
 import { questionData } from '@/data/questionData';
 import FormReview from './FormReview';
+import { RepeatIcon } from '@chakra-ui/icons';
 
 export type HistoryData = {
 	isSmoker?: boolean;
@@ -52,10 +60,12 @@ export const MultiStep = () => {
 	});
 	const formWidth = 'lg';
 
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
+		console.log('handleSubmit()...');
 		// SpinnerOn setInProcess()
 		// Send Email
 		// handle Response
+		setIsSent(true);
 		toast({
 			title: 'Great! Thank you.',
 			description: "We've sent your results to the email you provided.",
@@ -63,7 +73,9 @@ export const MultiStep = () => {
 			duration: 3000,
 			isClosable: true,
 		});
+		setStep(step + 1);
 	};
+
 	return (
 		<>
 			<Box
@@ -75,91 +87,118 @@ export const MultiStep = () => {
 				m='10px auto'
 				as='form'
 			>
-				<Progress
-					hasStripe
-					value={progress}
-					mb='5%'
-					mx='5%'
-					isAnimated
-				></Progress>
-
-				{/* FORM BODY */}
-				{!isSent ? (
-					step === 1 ? (
-						<FormIdentity width={formWidth} />
-					) : step === 2 ? (
-						<FormQuestions
-							width={formWidth}
-							questionData={questionData}
-						/>
-					) : (
-						<FormReview
+				{isSent ? (
+					<>
+						<FormResults
 							width={formWidth}
 							historyData={historyData}
 							identityData={identityData}
+							questionData={questionData}
 						/>
-					)
+						<ButtonGroup
+							mt='5%'
+							w='100%'
+						>
+							<Flex
+								w='100%'
+								justifyContent='center'
+							>
+								<Button
+									onClick={() => {
+										setStep(1);
+										setProgress(33.33);
+										setIsSent(false);
+									}}
+									colorScheme='teal'
+									variant='solid'
+									w='9rem'
+								>
+									<Text>Take Again</Text>
+									<RepeatIcon ml={2} />
+								</Button>
+							</Flex>
+						</ButtonGroup>
+					</>
 				) : (
-					<FormResults
-						width={formWidth}
-						historyData={historyData}
-						identityData={identityData}
-						questionData={questionData}
-					/>
-				)}
+					<>
+						<Progress
+							hasStripe
+							value={progress}
+							mb='5%'
+							mx='5%'
+							isAnimated
+						></Progress>
+						{/* FORM BODY */}
+						{step === 1 ? (
+							<FormIdentity width={formWidth} />
+						) : step === 2 ? (
+							<FormQuestions
+								width={formWidth}
+								questionData={questionData}
+							/>
+						) : (
+							<FormReview
+								width={formWidth}
+								historyData={historyData}
+								identityData={identityData}
+							/>
+						)}
 
-				{/* BTTN GROUP */}
-				<ButtonGroup
-					mt='5%'
-					w='100%'
-				>
-					<Flex
-						w='100%'
-						justifyContent='space-between'
-					>
-						<Flex>
-							<Button
-								onClick={() => {
-									setStep(step - 1);
-									setProgress(progress - 33.33);
-								}}
-								isDisabled={step === 1}
-								colorScheme='teal'
-								variant='solid'
-								w='7rem'
-								mr='5%'
+						{/* BTTN GROUP */}
+						<ButtonGroup
+							mt='5%'
+							w='100%'
+						>
+							<Flex
+								w='100%'
+								justifyContent='space-between'
 							>
-								Back
-							</Button>
-							<Button
-								w='7rem'
-								isDisabled={step === 3}
-								onClick={() => {
-									setStep(step + 1);
-									if (step === 3) {
-										setProgress(100);
-									} else {
-										setProgress(progress + 33.33);
-									}
-								}}
-								colorScheme='teal'
-								variant='outline'
-							>
-								Next
-							</Button>
-						</Flex>
-						{step === 3 ? (
-							<Button
-								w='7rem'
-								colorScheme='red'
-								variant='solid'
-								onClick={() => handleSubmit}
-							>
-								Submit
-							</Button>
-						) : null}
-					</Flex>
-				</ButtonGroup>
+								<Flex>
+									<Button
+										onClick={() => {
+											setStep(step - 1);
+											setProgress(progress - 33.33);
+										}}
+										isDisabled={step === 1}
+										colorScheme='teal'
+										variant='solid'
+										w='7rem'
+										mr='5%'
+									>
+										Back
+									</Button>
+									<Button
+										isDisabled={step === 3}
+										onClick={() => {
+											setStep(step + 1);
+											if (step === 3) {
+												setProgress(100);
+											} else {
+												setProgress(progress + 33.33);
+											}
+										}}
+										colorScheme='teal'
+										variant='outline'
+										w='7rem'
+									>
+										Next
+									</Button>
+								</Flex>
+
+								{step === 3 ? (
+									<Button
+										colorScheme='red'
+										variant='solid'
+										w='7rem'
+										onClick={() => handleSubmit()}
+									>
+										Submit
+									</Button>
+								) : null}
+							</Flex>
+						</ButtonGroup>
+					</>
+				)}
 			</Box>
 		</>
 	);

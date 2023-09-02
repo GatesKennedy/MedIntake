@@ -26,7 +26,10 @@ const FormIdentity = (props: { width: string }) => {
 				Welcome!
 			</Heading>
 			<Flex>
-				<FormControl mr='5%'>
+				<FormControl
+					isRequired
+					mr='5%'
+				>
 					<FormLabel
 						htmlFor='first-name'
 						fontWeight={'normal'}
@@ -39,7 +42,7 @@ const FormIdentity = (props: { width: string }) => {
 					/>
 				</FormControl>
 
-				<FormControl>
+				<FormControl isRequired>
 					<FormLabel
 						htmlFor='last-name'
 						fontWeight={'normal'}
@@ -52,7 +55,10 @@ const FormIdentity = (props: { width: string }) => {
 					/>
 				</FormControl>
 			</Flex>
-			<FormControl mt='2%'>
+			<FormControl
+				isRequired
+				mt='2%'
+			>
 				<FormLabel
 					htmlFor='email'
 					fontWeight={'normal'}
@@ -66,7 +72,7 @@ const FormIdentity = (props: { width: string }) => {
 					/>
 					<InputRightElement>
 						<Tooltip
-							label={'Where we send your results.'}
+							label={'The address where we send your results.'}
 							aria-label='A tooltip'
 						>
 							<InfoIcon />
