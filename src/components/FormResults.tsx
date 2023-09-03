@@ -12,6 +12,7 @@ const FormResults = (props: {
 	historyData: HistoryData;
 	identityData: IdentityData;
 	questionData: Question[];
+	navReset: () => void;
 }) => {
 	return (
 		<Container w={props.width}>

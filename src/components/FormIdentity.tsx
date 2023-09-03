@@ -11,19 +11,31 @@ import {
 	Tooltip,
 	InputGroup,
 	Container,
+	Box,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { IFormData, IdentityData } from './MultiStep';
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { IdentityData } from './MultiStep';
+import { UseFormRegister, FieldValues, useForm } from 'react-hook-form';
 
-const FormIdentity = (props: {
+interface IdentityFormProps {
 	width: string;
-	data: IdentityData;
-	register: UseFormRegister<IFormData>;
-	setData: Dispatch<SetStateAction<IdentityData>>;
-}) => {
+	handleData: (data: IdentityData) => void;
+	navRegress: () => void;
+	navProgress: () => void;
+}
+
+const FormIdentity = ({ width, handleData }: IdentityFormProps) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = useForm<IdentityData>();
+
 	return (
-		<Container w={props.width}>
+		<Box
+			as='form'
+			w={width}
+		>
 			<Heading
 				w='100%'
 				textAlign={'center'}
@@ -47,7 +59,7 @@ const FormIdentity = (props: {
 					<Input
 						id='firstName'
 						placeholder='First name'
-						{...props.register('firstName', {
+						{...register('firstName', {
 							required: true,
 							minLength: {
 								value: 2,
@@ -67,7 +79,7 @@ const FormIdentity = (props: {
 					<Input
 						id='lastName'
 						placeholder='Last name'
-						{...props.register('lastName', {
+						{...register('lastName', {
 							required: 'This is required',
 							minLength: {
 								value: 2,
@@ -91,7 +103,7 @@ const FormIdentity = (props: {
 					<Input
 						id='email'
 						type='email'
-						{...props.register('email', {
+						{...register('email', {
 							required: 'Email is required',
 							minLength: {
 								value: 6,
@@ -113,7 +125,7 @@ const FormIdentity = (props: {
 					<Text>We&apos;ll never share your email.</Text>
 				</FormHelperText>
 			</FormControl>
-		</Container>
+		</Box>
 	);
 };
 

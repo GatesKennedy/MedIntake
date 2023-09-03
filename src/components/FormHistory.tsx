@@ -9,8 +9,10 @@ import {
 	HStack,
 	Text,
 	Fade,
+	Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { HistoryData } from './MultiStep';
 
 const Question = (props: { questionData: Question; index: number }) => {
 	const [answer, setAnswer] = useState(false);
@@ -54,9 +56,19 @@ const Question = (props: { questionData: Question; index: number }) => {
 	);
 };
 
-const FormQuestions = (props: { width: string; questionData: Question[] }) => {
+interface HistoryFormProps {
+	width: string;
+	questionData: Question[];
+	handleData: (data: HistoryData) => void;
+	navRegress: () => void;
+	navProgress: () => void;
+}
+const FormHistory = ({ width, questionData, handleData }: HistoryFormProps) => {
 	return (
-		<Container w={props.width}>
+		<Box
+			as='form'
+			w={width}
+		>
 			<Heading
 				w='100%'
 				textAlign={'center'}
@@ -65,15 +77,15 @@ const FormQuestions = (props: { width: string; questionData: Question[] }) => {
 			>
 				Questions
 			</Heading>
-			{props.questionData.map((question, index) => (
+			{questionData.map((question, index) => (
 				<Question
 					key={index}
 					index={index}
 					questionData={question}
 				/>
 			))}
-		</Container>
+		</Box>
 	);
 };
 
-export default FormQuestions;
+export default FormHistory;
