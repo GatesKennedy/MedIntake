@@ -2,6 +2,7 @@ import React from 'react';
 import { IHistoryData, IIdentityData } from './MultiStep';
 import {
 	Box,
+	Divider,
 	Flex,
 	GridItem,
 	Heading,
@@ -23,11 +24,12 @@ interface ReviewAnswerProps {
 	answerData: IHistoryData;
 }
 
-interface QuestionResult extends HistoryQuestion {
+export interface QuestionResult extends HistoryQuestion {
 	answer: boolean | string;
 }
 
 const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
+	console.log('\n answerData: ', answerData);
 	const results: QuestionResult[] = questionData.map((question) => {
 		return {
 			...question,
@@ -41,12 +43,22 @@ const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 	return (
 		<>
 			{results.map((result, index) => (
-				<GridItem key={index}>
-					<Flex justify={'space-between'}>
-						<Text>{result.prompt}</Text>
-						<Text>{result.answer}</Text>
-					</Flex>
-				</GridItem>
+				<>
+					<GridItem key={index}>
+						<Flex justify={'space-between'}>
+							<Text w={'80%'}>{result.prompt}</Text>
+							<Text
+								fontWeight={'bold'}
+								color={
+									result.answer ? 'teal.300' : 'yellow.300'
+								}
+							>
+								{result.answer ? 'Yes' : 'No'}
+							</Text>
+						</Flex>
+					</GridItem>
+					<Divider key={index + '-d'} />
+				</>
 			))}
 		</>
 	);
@@ -72,13 +84,31 @@ const FormReview = ({
 				w='100%'
 				textAlign={'center'}
 				fontWeight='normal'
+				mb={4}
 			>
 				Review
 			</Heading>
 			<SimpleGrid
 				columns={1}
-				spacing={6}
+				spacing={2}
 			>
+				<GridItem>
+					<Flex justify={'space-between'}>
+						<Text>Full Name: </Text>
+						<Text fontWeight={'bold'}>
+							{`${identityData.firstName} ${identityData.lastName}`}
+						</Text>
+					</Flex>
+				</GridItem>
+				<Divider />
+				<GridItem>
+					<Flex justify={'space-between'}>
+						<Text>Email for Results: </Text>
+						<Text fontWeight={'bold'}>{identityData.email}</Text>
+					</Flex>
+				</GridItem>
+				<Divider />
+
 				<ReviewAnswer
 					questionData={historyQuestions}
 					answerData={{ ...identityData, ...historyData }}
@@ -86,10 +116,8 @@ const FormReview = ({
 			</SimpleGrid>
 			<NavGroup
 				stepNow={3}
-				errors={null}
-				isValid={true}
 				navRegress={navRegress}
-				navProgress={navProgress}
+				navProgress={handleData}
 			/>
 		</Box>
 	);

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	Heading,
 	Flex,
@@ -10,18 +10,12 @@ import {
 	InputRightElement,
 	Tooltip,
 	InputGroup,
-	Container,
 	Box,
 	FormErrorMessage,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
 import { IIdentityData } from './MultiStep';
-import {
-	UseFormRegister,
-	FieldValues,
-	useForm,
-	SubmitHandler,
-} from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import NavGroup from './NavGroup';
 
 interface IdentityFormProps {
@@ -40,7 +34,7 @@ const FormIdentity = ({
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitting, isValid },
+		formState: { errors, isValid },
 	} = useForm<IIdentityData>({
 		defaultValues: {
 			firstName: identityData.firstName,
@@ -48,23 +42,14 @@ const FormIdentity = ({
 			email: identityData.email,
 		},
 	});
-	const [isProgress, setIsProgress] = useState<boolean>();
-	function setProgress() {
-		setIsProgress(true);
-	}
-	function setRegress() {
-		setIsProgress(false);
-	}
 
 	const handleSetData: SubmitHandler<IIdentityData> = (data) => {
-		console.log('handleSetData()...');
 		if (isValid) {
-			console.log('isValid: ', isValid);
 			handleData(data);
 			navProgress();
 			return;
 		}
-		console.log('isValid: ', isValid);
+		console.log('handleSetData() > isValid: ', isValid);
 	};
 
 	return (
@@ -180,10 +165,8 @@ const FormIdentity = ({
 				</FormControl>
 				<NavGroup
 					stepNow={1}
-					errors={errors}
-					isValid={isValid}
-					navRegress={setRegress}
-					navProgress={setProgress}
+					navRegress={navRegress}
+					navProgress={navProgress}
 				/>
 			</Box>
 		</>

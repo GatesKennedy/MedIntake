@@ -20,15 +20,16 @@ import {
 	UseFormRegister,
 	useForm,
 } from 'react-hook-form';
+import { QuestionResult } from './FormReview';
 
 // QUESTION COMPONENT
 interface IQuestionProps {
 	index: number;
-	question: HistoryQuestion;
+	question: QuestionResult;
 	registerHook: UseFormRegister<IHistoryData>;
 }
 const Question = ({ index, question, registerHook }: IQuestionProps) => {
-	const [answer, setAnswer] = useState(false);
+	const [answer, setAnswer] = useState(question.answer);
 	const [showAnswer, setShowAnswer] = useState(false);
 
 	function hideAnswer() {
@@ -59,12 +60,11 @@ const Question = ({ index, question, registerHook }: IQuestionProps) => {
 					</FormLabel>
 					<Switch
 						id={question.name}
-						// onChange={onToggle}
-						{...registerHook(question.name, {})}
+						{...registerHook(question.name, { onChange: onToggle })}
 					/>
 				</FormControl>
 				<Fade in={showAnswer}>
-					<Text w={'4ch'}>{answer ? 'Yes' : 'No'}</Text>
+					<Text w={'3ch'}>{answer ? 'Yes' : 'No'}</Text>
 				</Fade>
 			</HStack>
 		</>
@@ -73,7 +73,6 @@ const Question = ({ index, question, registerHook }: IQuestionProps) => {
 
 //	HISTORY FORM
 interface HistoryFormProps {
-	identityData: IIdentityData;
 	historyData: IHistoryData;
 	questionData: HistoryQuestion[];
 	handleData: (data: IHistoryData) => void;
@@ -82,15 +81,12 @@ interface HistoryFormProps {
 }
 
 const FormHistory = ({
-	identityData,
 	historyData,
 	questionData,
 	handleData,
 	navRegress,
 	navProgress,
 }: HistoryFormProps) => {
-	console.log('identityData: ', identityData);
-	console.log('historyData: ', historyData);
 	const {
 		register,
 		handleSubmit,
@@ -101,13 +97,22 @@ const FormHistory = ({
 		},
 	});
 
+	const formData: QuestionResult[] = questionData.map((question) => {
+		return {
+			...question,
+			answer:
+				Object.entries(historyData).find(
+					(e) => e[0] === question.name,
+				)?.[1] ?? 'oops',
+		};
+	});
+
 	const handleSetData: SubmitHandler<IHistoryData> = (data) => {
-		console.log('handleSetData()...');
 		if (isValid) {
-			console.log('isValid: ', isValid);
 			handleData(data);
 			navProgress();
 		}
+		console.log('handleSetData() > isValid: ', isValid);
 	};
 
 	return (
@@ -124,7 +129,8 @@ const FormHistory = ({
 			>
 				Questions
 			</Heading>
-			{questionData.map((question, index) => (
+
+			{formData.map((question, index) => (
 				<Question
 					key={index}
 					index={index}
@@ -135,8 +141,6 @@ const FormHistory = ({
 
 			<NavGroup
 				stepNow={2}
-				errors={errors}
-				isValid={isValid}
 				navRegress={navRegress}
 				navProgress={navProgress}
 			/>

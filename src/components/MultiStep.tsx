@@ -110,7 +110,6 @@ export const MultiStep = () => {
 				) : step === 2 ? (
 					// HISTORY
 					<FormHistory
-						identityData={identityData}
 						historyData={historyData}
 						questionData={historyQuestions}
 						handleData={setHistoryData}
@@ -130,8 +129,6 @@ export const MultiStep = () => {
 				) : (
 					// RESULTS
 					<FormResults
-						// width={formWidth}
-						// historyData={historyData}
 						identityData={identityData}
 						questionData={historyQuestions}
 						navReset={handleReset}
