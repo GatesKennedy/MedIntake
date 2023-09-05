@@ -35,16 +35,16 @@ export const MultiStep = () => {
 		email: null,
 	});
 	const [historyData, setHistoryData] = useState<IHistoryData>({
-		hasApnea: null,
-		hasDenturedParents: null,
-		hasGumDisease: null,
-		hasVascularIssue: null,
-		isCleanedRecently: null,
-		isCoffeeRegular: null,
-		isDiabetic: null,
-		isMedicated: null,
-		isOver65: null,
-		isSmoker: null,
+		hasApnea: false,
+		hasDenturedParents: false,
+		hasGumDisease: false,
+		hasVascularIssue: false,
+		isCleanedRecently: false,
+		isCoffeeRegular: false,
+		isDiabetic: false,
+		isMedicated: false,
+		isOver65: false,
+		isSmoker: false,
 	});
 
 	// Work Flows
@@ -102,7 +102,7 @@ export const MultiStep = () => {
 				{step === 1 ? (
 					// IDENTITY
 					<FormIdentity
-						// width={formWidth}
+						identityData={identityData}
 						handleData={setIdentityData}
 						navRegress={handleRegress}
 						navProgress={handleProgress}
@@ -110,7 +110,8 @@ export const MultiStep = () => {
 				) : step === 2 ? (
 					// HISTORY
 					<FormHistory
-						// width={formWidth}
+						identityData={identityData}
+						historyData={historyData}
 						questionData={historyQuestions}
 						handleData={setHistoryData}
 						navRegress={handleRegress}

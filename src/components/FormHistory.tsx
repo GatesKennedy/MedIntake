@@ -12,7 +12,7 @@ import {
 	Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { IHistoryData } from './MultiStep';
+import { IHistoryData, IIdentityData } from './MultiStep';
 import NavGroup from './NavGroup';
 import {
 	RegisterOptions,
@@ -73,6 +73,8 @@ const Question = ({ index, question, registerHook }: IQuestionProps) => {
 
 //	HISTORY FORM
 interface HistoryFormProps {
+	identityData: IIdentityData;
+	historyData: IHistoryData;
 	questionData: HistoryQuestion[];
 	handleData: (data: IHistoryData) => void;
 	navRegress: () => void;
@@ -80,20 +82,32 @@ interface HistoryFormProps {
 }
 
 const FormHistory = ({
+	identityData,
+	historyData,
 	questionData,
 	handleData,
 	navRegress,
 	navProgress,
 }: HistoryFormProps) => {
+	console.log('identityData: ', identityData);
+	console.log('historyData: ', historyData);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors, isValid, isSubmitting },
-	} = useForm<IHistoryData>();
+	} = useForm<IHistoryData>({
+		defaultValues: {
+			...historyData,
+		},
+	});
 
 	const handleSetData: SubmitHandler<IHistoryData> = (data) => {
 		console.log('handleSetData()...');
-		handleData(data);
+		if (isValid) {
+			console.log('isValid: ', isValid);
+			handleData(data);
+			navProgress();
+		}
 	};
 
 	return (

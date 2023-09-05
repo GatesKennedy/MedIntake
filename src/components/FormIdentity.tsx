@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
 	Heading,
 	Flex,
@@ -25,12 +25,14 @@ import {
 import NavGroup from './NavGroup';
 
 interface IdentityFormProps {
+	identityData: IIdentityData;
 	handleData: (data: IIdentityData) => void;
 	navRegress: () => void;
 	navProgress: () => void;
 }
 
 const FormIdentity = ({
+	identityData,
 	handleData,
 	navRegress,
 	navProgress,
@@ -39,11 +41,30 @@ const FormIdentity = ({
 		register,
 		handleSubmit,
 		formState: { errors, isSubmitting, isValid },
-	} = useForm<IIdentityData>();
+	} = useForm<IIdentityData>({
+		defaultValues: {
+			firstName: identityData.firstName,
+			lastName: identityData.lastName,
+			email: identityData.email,
+		},
+	});
+	const [isProgress, setIsProgress] = useState<boolean>();
+	function setProgress() {
+		setIsProgress(true);
+	}
+	function setRegress() {
+		setIsProgress(false);
+	}
 
 	const handleSetData: SubmitHandler<IIdentityData> = (data) => {
 		console.log('handleSetData()...');
-		handleData(data);
+		if (isValid) {
+			console.log('isValid: ', isValid);
+			handleData(data);
+			navProgress();
+			return;
+		}
+		console.log('isValid: ', isValid);
 	};
 
 	return (
@@ -161,8 +182,8 @@ const FormIdentity = ({
 					stepNow={1}
 					errors={errors}
 					isValid={isValid}
-					navRegress={navRegress}
-					navProgress={navProgress}
+					navRegress={setRegress}
+					navProgress={setProgress}
 				/>
 			</Box>
 		</>

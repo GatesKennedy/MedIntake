@@ -25,13 +25,13 @@ const NavGroup = ({
 		// }
 		navRegress();
 	}
-	function handleProgress(): void {
-		if (isValid) {
-			navProgress();
-			return;
-		}
-		console.log('handleProgress() > errors: ', errors);
-	}
+	// function handleProgress(): void {
+	// 	if (isValid) {
+	// 		navProgress();
+	// 		return;
+	// 	}
+	// 	console.log('handleProgress() > errors: ', errors);
+	// }
 
 	return (
 		<ButtonGroup
@@ -55,11 +55,11 @@ const NavGroup = ({
 							Back
 						</Button>
 						<Button
+							type={'submit'}
 							isDisabled={stepNow === 3}
-							onClick={handleProgress}
+							// onClick={handleProgress}
 							colorScheme='teal'
 							variant='outline'
-							type={'submit'}
 							w='7rem'
 						>
 							{stepNow === 1 ? 'Next' : 'Review'}
@@ -72,10 +72,11 @@ const NavGroup = ({
 						unmountOnExit
 					>
 						<Button
+							type={'submit'}
 							colorScheme='red'
 							variant='solid'
 							w='7rem'
-							onClick={handleProgress}
+							// onClick={handleProgress}
 						>
 							Submit
 						</Button>
@@ -87,7 +88,7 @@ const NavGroup = ({
 					justifyContent='center'
 				>
 					<Button
-						onClick={handleProgress}
+						// onClick={handleProgress}
 						colorScheme='teal'
 						variant='solid'
 						w='9rem'
