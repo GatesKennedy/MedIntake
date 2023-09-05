@@ -1,74 +1,55 @@
 'use client';
 
 import { useState } from 'react';
-import {
-	Progress,
-	Box,
-	ButtonGroup,
-	Button,
-	Flex,
-	Text,
-	Fade,
-} from '@chakra-ui/react';
+import { Progress, Box } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import FormIdentity from './FormIdentity';
 import FormHistory from './FormHistory';
 import FormResults from './FormResults';
-import { questionData } from '@/data/questionData';
+import {
+	IdentityNameEnum,
+	QuestionNameEnum,
+	historyQuestions,
+} from '@/data/questionData';
 import FormReview from './FormReview';
-import { RepeatIcon } from '@chakra-ui/icons';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
-export type HistoryData = {
-	isSmoker?: boolean;
-	isOver65?: boolean;
-	isDiabetic?: boolean;
-	isMedicated?: boolean;
-	hasDentures?: boolean;
-	hasVascularIssue?: boolean;
-	hasApnea?: boolean;
-	drinksCoffee?: boolean;
-	hasGumDisease?: boolean;
-	isCleaned?: boolean;
+export type IHistoryData = {
+	[key in QuestionNameEnum]: boolean | null;
 };
-export type IdentityData = {
-	firstName?: string;
-	lastName?: string;
-	email?: string;
-};
-export interface IFormData {
-	firstName: string;
-	lastName: string;
-	email: string;
+export interface IIdentityData {
+	[IdentityNameEnum.ID_FIRST_NAME]: string | null;
+	[IdentityNameEnum.ID_LAST_NAME]: string | null;
+	[IdentityNameEnum.ID_EMAIL]: string | null;
 }
 
 export const MultiStep = () => {
-	const formWidth = 'lg';
 	const toast = useToast();
 	const [step, setStep] = useState(1);
 	const [isSent, setIsSent] = useState(false);
 	const [progress, setProgress] = useState(30);
 	// const [inProcess, setInProcess] = useState(false);
 	//!!! TODO: RESOLVE STATE
-	const [identityData, setIdentityData] = useState<IdentityData>({
-		firstName: '',
-		lastName: '',
-		email: '',
+	const [identityData, setIdentityData] = useState<IIdentityData>({
+		firstName: null,
+		lastName: null,
+		email: null,
 	});
-	const [historyData, setHistoryData] = useState<HistoryData>({
-		isSmoker: false,
-		isOver65: false,
-		isDiabetic: false,
-		isMedicated: false,
-		hasDentures: false,
-		hasApnea: false,
-		drinksCoffee: false,
-		hasGumDisease: false,
-		isCleaned: false,
+	const [historyData, setHistoryData] = useState<IHistoryData>({
+		hasApnea: null,
+		hasDenturedParents: null,
+		hasGumDisease: null,
+		hasVascularIssue: null,
+		isCleanedRecently: null,
+		isCoffeeRegular: null,
+		isDiabetic: null,
+		isMedicated: null,
+		isOver65: null,
+		isSmoker: null,
 	});
 
 	// Work Flows
 	const handleProgress = () => {
+		console.log('handleProgress()...');
 		setStep(step + 1);
 		setProgress(progress + 30);
 	};
@@ -121,7 +102,7 @@ export const MultiStep = () => {
 				{step === 1 ? (
 					// IDENTITY
 					<FormIdentity
-						width={formWidth}
+						// width={formWidth}
 						handleData={setIdentityData}
 						navRegress={handleRegress}
 						navProgress={handleProgress}
@@ -129,8 +110,8 @@ export const MultiStep = () => {
 				) : step === 2 ? (
 					// HISTORY
 					<FormHistory
-						width={formWidth}
-						questionData={questionData}
+						// width={formWidth}
+						questionData={historyQuestions}
 						handleData={setHistoryData}
 						navRegress={handleRegress}
 						navProgress={handleProgress}
@@ -138,7 +119,7 @@ export const MultiStep = () => {
 				) : step === 3 ? (
 					// REVIEW
 					<FormReview
-						width={formWidth}
+						// width={formWidth}
 						historyData={historyData}
 						identityData={identityData}
 						handleData={handleConfirm}
@@ -148,78 +129,13 @@ export const MultiStep = () => {
 				) : (
 					// RESULTS
 					<FormResults
-						width={formWidth}
-						historyData={historyData}
+						// width={formWidth}
+						// historyData={historyData}
 						identityData={identityData}
-						questionData={questionData}
+						questionData={historyQuestions}
 						navReset={handleReset}
 					/>
 				)}
-
-				{/* BTTN GROUP */}
-				<ButtonGroup
-					mt='5%'
-					w='100%'
-				>
-					{!isSent ? (
-						<Flex
-							w='100%'
-							justifyContent='space-between'
-						>
-							<Flex>
-								<Button
-									isDisabled={step === 1}
-									onClick={handleRegress}
-									colorScheme='teal'
-									variant='solid'
-									w='7rem'
-									mr='5%'
-								>
-									Back
-								</Button>
-								<Button
-									isDisabled={step === 3}
-									onClick={handleProgress}
-									colorScheme='teal'
-									variant='outline'
-									w='7rem'
-								>
-									{step === 1 ? 'Next' : 'Review'}
-								</Button>
-							</Flex>
-
-							{/* REVIEW */}
-							<Fade
-								in={step === 3}
-								unmountOnExit
-							>
-								<Button
-									colorScheme='red'
-									variant='solid'
-									w='7rem'
-									onClick={handleConfirm}
-								>
-									Submit
-								</Button>
-							</Fade>
-						</Flex>
-					) : (
-						<Flex
-							w='100%'
-							justifyContent='center'
-						>
-							<Button
-								onClick={handleReset}
-								colorScheme='teal'
-								variant='solid'
-								w='9rem'
-							>
-								<Text>Take Again</Text>
-								<RepeatIcon ml={2} />
-							</Button>
-						</Flex>
-					)}
-				</ButtonGroup>
 			</Box>
 		</>
 	);

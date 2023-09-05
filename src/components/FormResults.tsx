@@ -1,21 +1,20 @@
 import { Heading, Text, Container, Box } from '@chakra-ui/react';
 import React from 'react';
-import { HistoryData, IdentityData } from './MultiStep';
-import { Question, questionData } from '@/data/questionData';
+import { IHistoryData, IIdentityData } from './MultiStep';
+import { HistoryQuestion } from '@/data/questionData';
 
-export const Result = (props: { question: Question }) => {
+export const Result = (props: { question: HistoryQuestion }) => {
 	return <div>Result</div>;
 };
 
 const FormResults = (props: {
-	width: string;
-	historyData: HistoryData;
-	identityData: IdentityData;
-	questionData: Question[];
+	historyData?: IHistoryData;
+	identityData: IIdentityData;
+	questionData: HistoryQuestion[];
 	navReset: () => void;
 }) => {
 	return (
-		<Container w={props.width}>
+		<Container w={'full'}>
 			<Heading
 				w='100%'
 				textAlign={'center'}
@@ -35,11 +34,11 @@ const FormResults = (props: {
 					information below or in the email we&#39;ve sent.
 				</Text>
 			</Box>
-			{questionData.map((question, index) => (
+			{/* {questionData.map((question, index) => (
 				<>
 					<Text>result {index}</Text>
 				</>
-			))}
+			))} */}
 		</Container>
 	);
 };

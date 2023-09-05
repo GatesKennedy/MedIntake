@@ -1,4 +1,4 @@
-import { Question } from '@/data/questionData';
+import { HistoryQuestion } from '@/data/questionData';
 import {
 	Heading,
 	FormControl,
@@ -12,9 +12,22 @@ import {
 	Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { HistoryData } from './MultiStep';
+import { IHistoryData } from './MultiStep';
+import NavGroup from './NavGroup';
+import {
+	RegisterOptions,
+	SubmitHandler,
+	UseFormRegister,
+	useForm,
+} from 'react-hook-form';
 
-const Question = (props: { questionData: Question; index: number }) => {
+// QUESTION COMPONENT
+interface IQuestionProps {
+	index: number;
+	question: HistoryQuestion;
+	registerHook: UseFormRegister<IHistoryData>;
+}
+const Question = ({ index, question, registerHook }: IQuestionProps) => {
 	const [answer, setAnswer] = useState(false);
 	const [showAnswer, setShowAnswer] = useState(false);
 
@@ -26,9 +39,10 @@ const Question = (props: { questionData: Question; index: number }) => {
 		setShowAnswer(true);
 		setTimeout(hideAnswer, 2000);
 	}
+	const name: string = question.name;
 	return (
 		<>
-			{props.index === 0 ? '' : <Divider />}
+			{index === 0 ? '' : <Divider />}
 			<HStack>
 				<FormControl
 					display={'flex'}
@@ -38,14 +52,15 @@ const Question = (props: { questionData: Question; index: number }) => {
 					p={2}
 				>
 					<FormLabel
-						htmlFor={props.questionData.name}
+						htmlFor={question.name}
 						mb='0'
 					>
-						{props.questionData.prompt}
+						{question.prompt}
 					</FormLabel>
 					<Switch
-						id={props.questionData.name}
-						onChange={onToggle}
+						id={question.name}
+						// onChange={onToggle}
+						{...registerHook(question.name, {})}
 					/>
 				</FormControl>
 				<Fade in={showAnswer}>
@@ -56,18 +71,36 @@ const Question = (props: { questionData: Question; index: number }) => {
 	);
 };
 
+//	HISTORY FORM
 interface HistoryFormProps {
-	width: string;
-	questionData: Question[];
-	handleData: (data: HistoryData) => void;
+	questionData: HistoryQuestion[];
+	handleData: (data: IHistoryData) => void;
 	navRegress: () => void;
 	navProgress: () => void;
 }
-const FormHistory = ({ width, questionData, handleData }: HistoryFormProps) => {
+
+const FormHistory = ({
+	questionData,
+	handleData,
+	navRegress,
+	navProgress,
+}: HistoryFormProps) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isValid, isSubmitting },
+	} = useForm<IHistoryData>();
+
+	const handleSetData: SubmitHandler<IHistoryData> = (data) => {
+		console.log('handleSetData()...');
+		handleData(data);
+	};
+
 	return (
 		<Box
 			as='form'
-			w={width}
+			w={'full'}
+			onSubmit={handleSubmit(handleSetData)}
 		>
 			<Heading
 				w='100%'
@@ -81,9 +114,18 @@ const FormHistory = ({ width, questionData, handleData }: HistoryFormProps) => {
 				<Question
 					key={index}
 					index={index}
-					questionData={question}
+					question={question}
+					registerHook={register}
 				/>
 			))}
+
+			<NavGroup
+				stepNow={2}
+				errors={errors}
+				isValid={isValid}
+				navRegress={navRegress}
+				navProgress={navProgress}
+			/>
 		</Box>
 	);
 };

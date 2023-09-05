@@ -12,120 +12,160 @@ import {
 	InputGroup,
 	Container,
 	Box,
+	FormErrorMessage,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { IdentityData } from './MultiStep';
-import { UseFormRegister, FieldValues, useForm } from 'react-hook-form';
+import { IIdentityData } from './MultiStep';
+import {
+	UseFormRegister,
+	FieldValues,
+	useForm,
+	SubmitHandler,
+} from 'react-hook-form';
+import NavGroup from './NavGroup';
 
 interface IdentityFormProps {
-	width: string;
-	handleData: (data: IdentityData) => void;
+	handleData: (data: IIdentityData) => void;
 	navRegress: () => void;
 	navProgress: () => void;
 }
 
-const FormIdentity = ({ width, handleData }: IdentityFormProps) => {
+const FormIdentity = ({
+	handleData,
+	navRegress,
+	navProgress,
+}: IdentityFormProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isSubmitting },
-	} = useForm<IdentityData>();
+		formState: { errors, isSubmitting, isValid },
+	} = useForm<IIdentityData>();
+
+	const handleSetData: SubmitHandler<IIdentityData> = (data) => {
+		console.log('handleSetData()...');
+		handleData(data);
+	};
 
 	return (
-		<Box
-			as='form'
-			w={width}
-		>
-			<Heading
-				w='100%'
-				textAlign={'center'}
-				fontWeight='normal'
-				mb='2%'
+		<>
+			<Box
+				as='form'
+				w={'full'}
+				onSubmit={handleSubmit(handleSetData)}
+				noValidate
 			>
-				Welcome!
-			</Heading>
-			<Flex>
+				<Heading
+					w='100%'
+					textAlign={'center'}
+					fontWeight='normal'
+					mb='2%'
+				>
+					Welcome!
+				</Heading>
+				<Flex>
+					<FormControl
+						isRequired
+						isInvalid={Boolean(errors.firstName)}
+						mr='5%'
+					>
+						<FormLabel
+							htmlFor='firstName'
+							fontWeight={'normal'}
+						>
+							First name
+						</FormLabel>
+						<Input
+							id='firstName'
+							placeholder='First name'
+							{...register('firstName', {
+								required: 'First name is required...',
+								minLength: {
+									value: 2,
+									message: 'Minimum length should be 2',
+								},
+							})}
+						/>
+						<FormErrorMessage>
+							{errors.firstName && errors.firstName?.message}
+						</FormErrorMessage>
+					</FormControl>
+
+					<FormControl
+						isRequired
+						isInvalid={Boolean(errors.lastName)}
+					>
+						<FormLabel
+							htmlFor='lastName'
+							fontWeight={'normal'}
+						>
+							Last name
+						</FormLabel>
+						<Input
+							id='lastName'
+							placeholder='Last name'
+							{...register('lastName', {
+								required: 'Last name is required...',
+								minLength: {
+									value: 2,
+									message: 'Minimum length should be 2',
+								},
+							})}
+						/>
+						<FormErrorMessage>
+							{errors.lastName && errors.lastName?.message}
+						</FormErrorMessage>
+					</FormControl>
+				</Flex>
 				<FormControl
 					isRequired
-					// isInvalid={errors.name}
-					mr='5%'
+					isInvalid={Boolean(errors.email)}
+					mt='2%'
 				>
 					<FormLabel
-						htmlFor='firstName'
+						htmlFor='email'
 						fontWeight={'normal'}
 					>
-						First name
+						Email address
 					</FormLabel>
-					<Input
-						id='firstName'
-						placeholder='First name'
-						{...register('firstName', {
-							required: true,
-							minLength: {
-								value: 2,
-								message: 'Minimum length should be 2',
-							},
-						})}
-					/>
+					<InputGroup>
+						<Input
+							id='email'
+							type='email'
+							{...register('email', {
+								required: 'Where should we send your results?',
+								minLength: {
+									value: 6,
+									message: 'Miniumn length is 6 characters',
+								},
+							})}
+						/>
+						<InputRightElement>
+							<Tooltip
+								label={
+									'Where would you like us to send your test results?'
+								}
+								aria-label='A tooltip'
+							>
+								<InfoIcon />
+							</Tooltip>
+						</InputRightElement>
+					</InputGroup>
+					<FormErrorMessage>
+						{errors.email && errors.email?.message}
+					</FormErrorMessage>
+					<FormHelperText>
+						<Text>We&apos;ll never share your email.</Text>
+					</FormHelperText>
 				</FormControl>
-
-				<FormControl isRequired>
-					<FormLabel
-						htmlFor='lastName'
-						fontWeight={'normal'}
-					>
-						Last name
-					</FormLabel>
-					<Input
-						id='lastName'
-						placeholder='Last name'
-						{...register('lastName', {
-							required: 'This is required',
-							minLength: {
-								value: 2,
-								message: 'Minimum length should be 2',
-							},
-						})}
-					/>
-				</FormControl>
-			</Flex>
-			<FormControl
-				isRequired
-				mt='2%'
-			>
-				<FormLabel
-					htmlFor='email'
-					fontWeight={'normal'}
-				>
-					Email address
-				</FormLabel>
-				<InputGroup>
-					<Input
-						id='email'
-						type='email'
-						{...register('email', {
-							required: 'Email is required',
-							minLength: {
-								value: 6,
-								message: 'Miniumn length is 6 characters',
-							},
-						})}
-					/>
-					<InputRightElement>
-						<Tooltip
-							label={'The address where we send your results.'}
-							aria-label='A tooltip'
-						>
-							<InfoIcon />
-						</Tooltip>
-					</InputRightElement>
-				</InputGroup>
-
-				<FormHelperText>
-					<Text>We&apos;ll never share your email.</Text>
-				</FormHelperText>
-			</FormControl>
-		</Box>
+				<NavGroup
+					stepNow={1}
+					errors={errors}
+					isValid={isValid}
+					navRegress={navRegress}
+					navProgress={navProgress}
+				/>
+			</Box>
+		</>
 	);
 };
 
