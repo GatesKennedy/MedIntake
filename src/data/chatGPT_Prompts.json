@@ -1,0 +1,3 @@
+{ "history": [
+	"From the perspective of a dentist, what are the associated risks to the dental health of a person who has not had a dental cleaning within the last three years? Please list these risks as an array of objects defined as {name: string, desc: string}  in JSON format where 'name' is the name of the risk and 'desc' is the description of the risk to your oral health."
+]}

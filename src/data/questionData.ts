@@ -494,3 +494,12 @@ export const historyQuestions: HistoryQuestion[] = [
 		// answer: null
 	},
 ]
+
+//=== CHAT GPT PROMPT ===
+
+// From the perspective of a dentist,
+// what are the associated risks to the dental health of a person who <VAR>?
+// Please list these risks as an array of objects defined as
+// {name: string, desc: string} in JSON format
+// where 'name' is the name of the risk
+// and 'desc' is the description of the risk to your oral health.
