@@ -15,9 +15,8 @@ import NavGroup from './NavGroup';
 interface ReviewFormProps {
 	historyData: IHistoryData;
 	identityData: IIdentityData;
-	handleData: () => void;
 	navRegress: () => void;
-	navProgress: () => void;
+	handleConfirm: () => void;
 }
 interface ReviewAnswerProps {
 	questionData: HistoryQuestion[];
@@ -66,13 +65,9 @@ const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 const FormReview = ({
 	historyData,
 	identityData,
-	handleData,
 	navRegress,
-	navProgress,
+	handleConfirm,
 }: ReviewFormProps) => {
-	// for (const [key, value] of Object.entries(historyData)) {
-	// 	console.log(`${key}: ${value}`);
-	// }
 	console.log('identityData: \n', identityData);
 	console.log('historyData: \n', historyData);
 	return (
@@ -117,7 +112,7 @@ const FormReview = ({
 			<NavGroup
 				stepNow={3}
 				navRegress={navRegress}
-				navProgress={handleData}
+				navProgress={handleConfirm}
 			/>
 		</Box>
 	);

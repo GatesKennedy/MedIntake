@@ -4,6 +4,7 @@ import {
 	Divider,
 	Flex,
 	HStack,
+	Heading,
 	StackDivider,
 	VStack,
 } from '@chakra-ui/react';
@@ -25,10 +26,13 @@ const Header = () => {
 				<Flex
 					as={'nav'}
 					m={2}
+					pt={2}
 				>
-					Welcome!
+					<Heading size={'md'}>
+						Dental Risk Assessment Intake Form
+					</Heading>
 				</Flex>
-				<Divider mb={2} />
+				<Divider mb={4} />
 			</VStack>
 		</Center>
 	);

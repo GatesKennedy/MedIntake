@@ -75,6 +75,19 @@ export const MultiStep = () => {
 	const handleReset = () => {
 		setStep(1);
 		setProgress(30);
+		setIdentityData({ firstName: null, lastName: null, email: null });
+		setHistoryData({
+			hasApnea: false,
+			hasDenturedParents: false,
+			hasGumDisease: false,
+			hasVascularIssue: false,
+			isCleanedRecently: false,
+			isCoffeeRegular: false,
+			isDiabetic: false,
+			isMedicated: false,
+			isOver65: false,
+			isSmoker: false,
+		});
 		setIsSent(false);
 	};
 
@@ -122,13 +135,13 @@ export const MultiStep = () => {
 						// width={formWidth}
 						historyData={historyData}
 						identityData={identityData}
-						handleData={handleConfirm}
 						navRegress={handleRegress}
-						navProgress={handleProgress}
+						handleConfirm={handleConfirm}
 					/>
 				) : (
 					// RESULTS
 					<FormResults
+						historyData={historyData}
 						identityData={identityData}
 						questionData={historyQuestions}
 						navReset={handleReset}
