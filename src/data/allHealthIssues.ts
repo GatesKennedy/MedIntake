@@ -15,7 +15,6 @@
 
 // export const allDentalRisks: DentalIssue[] = [
 
-
 // 			{
 // 				causes: [QuestionNameEnum.IS_OVER_SIXTYFIVE, QuestionNameEnum.IS_DIABETIC],
 // 				"name": "Gum Disease (Periodontal Disease)",
@@ -232,7 +231,6 @@
 // 		// answer: null
 // 	,
 
-
 // 			{
 // 					causes: [QuestionNameEnum.HAS_APNEA],
 // 				"name": "Bruxism",
@@ -269,11 +267,8 @@
 // 				"desc": "The clenching or grinding of teeth, often associated with sleep apnea, can contribute to TMJ disorders, leading to jaw pain and dysfunction."
 // 			}
 
-
 // 		// answer: null
 // 	,
-
-
 
 // 			{
 // 				causes: [QuestionNameEnum.IS_COFFEE_REGULAR],
@@ -313,9 +308,6 @@
 
 // 		// answer: null
 // 	,
-
-
-
 
 // 			{
 // 						causes: [QuestionNameEnum.HAS_GUM_DISEASE],
@@ -450,9 +442,6 @@
 // 				"name": "Tooth Loss",
 // 				"desc": "Due to the increased risk of gum disease, tooth decay, and compromised healing, smokers are more likely to experience tooth loss compared to non-smokers."
 // 			},
-
-
-
 
 // 			{
 // 				"name": "Gum Disease (Periodontal Disease)",

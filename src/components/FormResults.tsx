@@ -1,17 +1,60 @@
 import { Heading, Text, Box } from '@chakra-ui/react';
 import React from 'react';
 import { IHistoryData, IIdentityData } from './MultiStep';
-import { HistoryQuestion, QuestionNameEnum } from '@/data/questionData';
+import {
+	HistoryQuestion,
+	QuestionNameEnum,
+	answerIsAnIssueState,
+} from '@/data/questionData';
 import NavGroup from './NavGroup';
 
 export const Result = (props: { question: HistoryQuestion }) => {
-	return <div>Result</div>;
+	return (
+		<Box my={3}>
+			<Heading size={'md'}>
+				{props.question.prompt}: {props.question.answer ? 'Yes' : 'No'}
+			</Heading>
+			{props.question.result.map((result, index) => (
+				<Box
+					key={index}
+					my={3}
+					ml={3}
+				>
+					<Heading size={'sm'}>{result.name}</Heading>
+					<Text ml={3}>{result.desc}</Text>
+				</Box>
+			))}
+		</Box>
+	);
 };
 interface IFormResults {
 	historyData: IHistoryData;
 	identityData: IIdentityData;
 	questionData: HistoryQuestion[];
 	navReset: () => void;
+}
+
+function buildResults(
+	historyData: IHistoryData,
+	issueState: IHistoryData,
+	questionData: HistoryQuestion[],
+): HistoryQuestion[] {
+	const resultsArray: HistoryQuestion[] = [];
+	// const issueStateArray = Object.entries(issueState);
+	const answersArray = Object.entries(historyData).filter(
+		(a) => a[1] === issueState[a[0] as QuestionNameEnum],
+	);
+	answersArray.forEach((a) => {
+		const result = questionData.find(
+			(q) => q.name === (a[0] as QuestionNameEnum),
+		);
+		if (result) {
+			result.answer = a[1];
+			resultsArray.push(result);
+		}
+	});
+
+	return resultsArray;
 }
 
 const FormResults = ({
@@ -43,7 +86,7 @@ const FormResults = ({
 					information below or in the email we&#39;ve sent.
 				</Text>
 			</Box>
-			<Box
+			{/* <Box
 				my={4}
 				py={2}
 			>
@@ -78,6 +121,18 @@ const FormResults = ({
 							</Box>
 						);
 					})}
+			</Box> */}
+			<Box my={4}>
+				{buildResults(
+					historyData,
+					answerIsAnIssueState,
+					questionData,
+				).map((question, index) => (
+					<Result
+						key={index}
+						question={question}
+					/>
+				))}
 			</Box>
 			<NavGroup
 				stepNow={4}

@@ -83,16 +83,16 @@ export const MultiStep = () => {
 		setProgress(30);
 		setIdentityData({ firstName: null, lastName: null, email: null });
 		setHistoryData({
-			hasApnea: false,
-			hasDenturedParents: false,
-			hasGumDisease: false,
-			hasVascularIssue: false,
-			isCleanedRecently: false,
-			isCoffeeRegular: false,
-			isDiabetic: false,
-			isMedicated: false,
-			isOver65: false,
-			isSmoker: false,
+			[QuestionNameEnum.IS_SMOKER]: false,
+			[QuestionNameEnum.HAS_APNEA]: false,
+			[QuestionNameEnum.IS_DIABETIC]: false,
+			[QuestionNameEnum.IS_MEDICATED]: false,
+			[QuestionNameEnum.HAS_GUM_DISEASE]: false,
+			[QuestionNameEnum.IS_COFFEE_REGULAR]: false,
+			[QuestionNameEnum.IS_OVER_SIXTYFIVE]: false,
+			[QuestionNameEnum.HAS_VASCULAR_ISSUE]: false,
+			[QuestionNameEnum.IS_CLEANED_RECENTLY]: false,
+			[QuestionNameEnum.HAS_DENTURED_PARENTS]: false,
 		});
 		setIsSent(false);
 	};

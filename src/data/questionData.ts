@@ -47,6 +47,19 @@ export enum QuestionNameEnum {
 	IS_SMOKER = 'isSmoker',
 }
 
+export const answerIsAnIssueState = {
+	[QuestionNameEnum.IS_SMOKER]: true,
+	[QuestionNameEnum.HAS_APNEA]: true,
+	[QuestionNameEnum.IS_DIABETIC]: true,
+	[QuestionNameEnum.IS_MEDICATED]: true,
+	[QuestionNameEnum.HAS_GUM_DISEASE]: true,
+	[QuestionNameEnum.IS_COFFEE_REGULAR]: true,
+	[QuestionNameEnum.IS_OVER_SIXTYFIVE]: true,
+	[QuestionNameEnum.HAS_VASCULAR_ISSUE]: true,
+	[QuestionNameEnum.HAS_DENTURED_PARENTS]: true,
+	[QuestionNameEnum.IS_CLEANED_RECENTLY]: false,
+};
+
 export interface HealthIssue {
 	name: string;
 	desc: string;

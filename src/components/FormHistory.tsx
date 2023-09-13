@@ -3,7 +3,6 @@ import {
 	Heading,
 	FormControl,
 	FormLabel,
-	Container,
 	Switch,
 	Divider,
 	HStack,
@@ -12,14 +11,9 @@ import {
 	Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { IHistoryData, IIdentityData } from './MultiStep';
+import { IHistoryData } from './MultiStep';
 import NavGroup from './NavGroup';
-import {
-	RegisterOptions,
-	SubmitHandler,
-	UseFormRegister,
-	useForm,
-} from 'react-hook-form';
+import { SubmitHandler, UseFormRegister, useForm } from 'react-hook-form';
 
 // QUESTION COMPONENT
 interface IQuestionProps {
