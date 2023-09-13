@@ -1,3 +1,8 @@
+export enum IdentityNameEnum {
+	ID_EMAIL = 'email',
+	ID_FIRST_NAME = 'firstName',
+	ID_LAST_NAME = 'lastName',
+}
 export type IdentityQuestion = {
 	name: string;
 	prompt: string;
@@ -29,11 +34,6 @@ export const identityQuestions: IdentityQuestion[] = [
 	},
 ];
 
-export enum IdentityNameEnum {
-	ID_EMAIL = 'email',
-	ID_FIRST_NAME = 'firstName',
-	ID_LAST_NAME = 'lastName',
-}
 export enum QuestionNameEnum {
 	HAS_APNEA = 'hasApnea',
 	HAS_DENTURED_PARENTS = 'hasDenturedParents',
@@ -68,6 +68,7 @@ export interface HealthIssue {
 export type HistoryQuestion = {
 	name: QuestionNameEnum;
 	prompt: string;
+	resultPrompt: string;
 	result: HealthIssue[];
 	answer: boolean | null;
 };
@@ -76,6 +77,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.IS_OVER_SIXTYFIVE,
 		prompt: 'Are you over 65 years old?',
+		resultPrompt: 'Over 65 years old',
 		answer: null,
 		result: [
 			{
@@ -143,6 +145,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.IS_DIABETIC,
 		prompt: 'Do you have Type-II Diabetes?',
+		resultPrompt: 'Type-II Diabetes',
 		answer: null,
 		result: [
 			{
@@ -200,6 +203,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.IS_MEDICATED,
 		prompt: 'Do you take at least 3 medications?',
+		resultPrompt: 'Three or more medications',
 		answer: null,
 		result: [
 			{
@@ -252,6 +256,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.HAS_VASCULAR_ISSUE,
 		prompt: 'Have you ever had a heart attack or stroke?',
+		resultPrompt: 'Heart attack or stroke',
 		answer: null,
 		result: [
 			{
@@ -309,6 +314,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.HAS_APNEA,
 		prompt: 'Do you have sleep apnea?',
+		resultPrompt: 'Effects of sleep apnea',
 		answer: null,
 		result: [
 			{
@@ -351,6 +357,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.IS_COFFEE_REGULAR,
 		prompt: 'Do you drink coffee regularly?',
+		resultPrompt: 'Drinking coffee regularly',
 		answer: null,
 		result: [
 			{
@@ -393,6 +400,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.HAS_GUM_DISEASE,
 		prompt: 'Have you been diagnosed with gum disease?',
+		resultPrompt: 'Diagnosed Gum Disease',
 		answer: null,
 		result: [
 			{
@@ -450,6 +458,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.HAS_DENTURED_PARENTS,
 		prompt: 'To your knowledge, do either of your parents have dentures?',
+		resultPrompt: 'Parents with dentures',
 		answer: null,
 		result: [
 			{
@@ -491,7 +500,8 @@ export const historyQuestions: HistoryQuestion[] = [
 	},
 	{
 		name: QuestionNameEnum.IS_SMOKER,
-		prompt: 'Do you smoke anything regularly?',
+		prompt: 'Do you smoke tobacco regularly?',
+		resultPrompt: 'Smoking tobacco regularly',
 		answer: null,
 		result: [
 			{
@@ -554,6 +564,7 @@ export const historyQuestions: HistoryQuestion[] = [
 	{
 		name: QuestionNameEnum.IS_CLEANED_RECENTLY,
 		prompt: 'Have you had a dental cleaning within the last 3 years?',
+		resultPrompt: 'Missing dental cleanings',
 		answer: null,
 		result: [
 			{

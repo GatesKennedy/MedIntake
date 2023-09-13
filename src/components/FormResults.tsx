@@ -1,4 +1,15 @@
-import { Heading, Text, Box } from '@chakra-ui/react';
+import {
+	Heading,
+	Text,
+	Box,
+	Divider,
+	HStack,
+	AccordionItem,
+	AccordionButton,
+	AccordionIcon,
+	AccordionPanel,
+	Accordion,
+} from '@chakra-ui/react';
 import React from 'react';
 import { IHistoryData, IIdentityData } from './MultiStep';
 import {
@@ -7,24 +18,53 @@ import {
 	answerIsAnIssueState,
 } from '@/data/questionData';
 import NavGroup from './NavGroup';
+import Head from 'next/head';
+import { QuestionOutlineIcon } from '@chakra-ui/icons';
 
 export const Result = (props: { question: HistoryQuestion }) => {
 	return (
-		<Box my={3}>
-			<Heading size={'md'}>
-				{props.question.prompt}: {props.question.answer ? 'Yes' : 'No'}
-			</Heading>
-			{props.question.result.map((result, index) => (
-				<Box
-					key={index}
-					my={3}
-					ml={3}
+		<AccordionItem
+			w={'full'}
+			my={3}
+		>
+			<AccordionButton w={'full'}>
+				<Heading
+					w={'full'}
+					size={'md'}
 				>
-					<Heading size={'sm'}>{result.name}</Heading>
-					<Text ml={3}>{result.desc}</Text>
-				</Box>
-			))}
-		</Box>
+					<HStack justify={'space-between'}>
+						<HStack>
+							<QuestionOutlineIcon color={'yellow.300'} />{' '}
+							<Text ml={4}>{props.question.resultPrompt}...</Text>
+						</HStack>
+						<AccordionIcon />
+						{/* <Box
+							justifyContent={'right'}
+							color={'yellow.300'}
+						>
+							{props.question.answer ? 'Yes' : 'No'}
+						</Box> */}
+					</HStack>
+				</Heading>
+			</AccordionButton>
+			<AccordionPanel>
+				{props.question.result.map((result, index) => (
+					<Box
+						key={index}
+						my={3}
+						ml={3}
+					>
+						<Heading
+							size={'sm'}
+							color={'blue.300'}
+						>
+							{result.name}
+						</Heading>
+						<Text ml={3}>{result.desc}</Text>
+					</Box>
+				))}
+			</AccordionPanel>
+		</AccordionItem>
 	);
 };
 interface IFormResults {
@@ -72,6 +112,7 @@ const FormResults = ({
 			>
 				Complete!
 			</Heading>
+
 			<Box>
 				<Text>
 					Thank you <b>{identityData.firstName}</b>.
@@ -86,43 +127,13 @@ const FormResults = ({
 					information below or in the email we&#39;ve sent.
 				</Text>
 			</Box>
-			{/* <Box
+
+			<Divider mt={6} />
+
+			<Accordion
+				allowToggle={true}
 				my={4}
-				py={2}
 			>
-				{Object.entries(historyData)
-					.filter((q) => q[1] === true)
-					.map((entry, index) => {
-						return (
-							<Box
-								key={index}
-								my={3}
-							>
-								<Heading
-									my={2}
-									size={'lg'}
-								>
-									{entry[0]}
-								</Heading>
-								{questionData
-									.find((q) => q.name.toString() === entry[0])
-									?.result.map((issue) => (
-										<Box
-											mt={2}
-											ml={2}
-											key={'issue-' + index}
-										>
-											<Heading size={'md'}>
-												{issue.name}
-											</Heading>
-											<Text ml={3}>{issue.desc}</Text>
-										</Box>
-									))}
-							</Box>
-						);
-					})}
-			</Box> */}
-			<Box my={4}>
 				{buildResults(
 					historyData,
 					answerIsAnIssueState,
@@ -133,7 +144,8 @@ const FormResults = ({
 						question={question}
 					/>
 				))}
-			</Box>
+			</Accordion>
+
 			<NavGroup
 				stepNow={4}
 				navRegress={navReset}
