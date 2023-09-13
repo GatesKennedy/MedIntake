@@ -20,12 +20,11 @@ import {
 	UseFormRegister,
 	useForm,
 } from 'react-hook-form';
-import { QuestionResult } from './FormReview';
 
 // QUESTION COMPONENT
 interface IQuestionProps {
 	index: number;
-	question: QuestionResult;
+	question: HistoryQuestion;
 	registerHook: UseFormRegister<IHistoryData>;
 }
 const Question = ({ index, question, registerHook }: IQuestionProps) => {
@@ -97,13 +96,13 @@ const FormHistory = ({
 		},
 	});
 
-	const formData: QuestionResult[] = questionData.map((question) => {
+	const formData: HistoryQuestion[] = questionData.map((question) => {
 		return {
 			...question,
 			answer:
 				Object.entries(historyData).find(
 					(e) => e[0] === question.name,
-				)?.[1] ?? 'oops',
+				)?.[1] ?? null,
 		};
 	});
 

@@ -1,7 +1,7 @@
-import { Heading, Text, Container, Box } from '@chakra-ui/react';
+import { Heading, Text, Box } from '@chakra-ui/react';
 import React from 'react';
 import { IHistoryData, IIdentityData } from './MultiStep';
-import { HistoryQuestion } from '@/data/questionData';
+import { HistoryQuestion, QuestionNameEnum } from '@/data/questionData';
 import NavGroup from './NavGroup';
 
 export const Result = (props: { question: HistoryQuestion }) => {
@@ -43,11 +43,42 @@ const FormResults = ({
 					information below or in the email we&#39;ve sent.
 				</Text>
 			</Box>
-			{/* {questionData.map((question, index) => (
-				<>
-					<Text>result {index}</Text>
-				</>
-			))} */}
+			<Box
+				my={4}
+				py={2}
+			>
+				{Object.entries(historyData)
+					.filter((q) => q[1] === true)
+					.map((entry, index) => {
+						return (
+							<Box
+								key={index}
+								my={3}
+							>
+								<Heading
+									my={2}
+									size={'lg'}
+								>
+									{entry[0]}
+								</Heading>
+								{questionData
+									.find((q) => q.name.toString() === entry[0])
+									?.result.map((issue) => (
+										<Box
+											mt={2}
+											ml={2}
+											key={'issue-' + index}
+										>
+											<Heading size={'md'}>
+												{issue.name}
+											</Heading>
+											<Text ml={3}>{issue.desc}</Text>
+										</Box>
+									))}
+							</Box>
+						);
+					})}
+			</Box>
 			<NavGroup
 				stepNow={4}
 				navRegress={navReset}

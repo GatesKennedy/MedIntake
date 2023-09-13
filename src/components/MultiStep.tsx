@@ -22,6 +22,11 @@ export interface IIdentityData {
 	[IdentityNameEnum.ID_EMAIL]: string | null;
 }
 
+export interface IFormsData {
+	historyData: IHistoryData;
+	identityData: IIdentityData;
+}
+
 export const MultiStep = () => {
 	const toast = useToast();
 	const [step, setStep] = useState(1);
@@ -61,6 +66,7 @@ export const MultiStep = () => {
 		console.log('handleSubmit()...');
 		// SpinnerOn setInProcess()
 		// Send Email
+
 		// handle Response
 		setIsSent(true);
 		toast({

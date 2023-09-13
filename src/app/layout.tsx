@@ -6,8 +6,8 @@ import Footer from '../components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'aoe',
-	description: 'are you curious?',
+	title: 'Dental Risk',
+	description: 'Dental Assessment Intake Form',
 };
 export type ChildProps = {
 	children: React.ReactNode;

@@ -23,19 +23,15 @@ interface ReviewAnswerProps {
 	answerData: IHistoryData;
 }
 
-export interface QuestionResult extends HistoryQuestion {
-	answer: boolean | string;
-}
-
 const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 	console.log('\n answerData: ', answerData);
-	const results: QuestionResult[] = questionData.map((question) => {
+	const results: HistoryQuestion[] = questionData.map((question) => {
 		return {
 			...question,
 			answer:
 				Object.entries(answerData).find(
 					(e) => e[0] === question.name,
-				)?.[1] ?? 'oops',
+				)?.[1] ?? null,
 		};
 	});
 
