@@ -1,3 +1,5 @@
+import { IHistoryData } from '@/components/MultiStep';
+
 export enum IdentityNameEnum {
 	ID_EMAIL = 'email',
 	ID_FIRST_NAME = 'firstName',
@@ -47,7 +49,7 @@ export enum QuestionNameEnum {
 	IS_SMOKER = 'isSmoker',
 }
 
-export const answerIsAnIssueState = {
+export const answerIsAnIssueState: IHistoryData = {
 	[QuestionNameEnum.IS_SMOKER]: true,
 	[QuestionNameEnum.HAS_APNEA]: true,
 	[QuestionNameEnum.IS_DIABETIC]: true,
