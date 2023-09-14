@@ -1,5 +1,5 @@
 import { HistoryQuestion, QuestionNameEnum } from '@/data/questionData';
-import { IHistoryData } from './MultiStep';
+import { IHistoryData, IIdentityData } from './MultiStep';
 import {
 	Accordion,
 	AccordionButton,
@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { QuestionOutlineIcon } from '@chakra-ui/icons';
 
-function buildResults(
+export function buildResults(
 	historyData: IHistoryData,
 	issueState: IHistoryData,
 	questionData: HistoryQuestion[],
@@ -80,6 +80,10 @@ interface IResultsList {
 	historyData: IHistoryData;
 	issueStateData: IHistoryData;
 	questionData: HistoryQuestion[];
+}
+
+interface IResultsEmail extends IResultsList {
+	identityData: IIdentityData;
 }
 
 export const ResultsList = ({
