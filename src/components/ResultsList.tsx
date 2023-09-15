@@ -76,14 +76,10 @@ export const Result = (props: { question: HistoryQuestion }) => {
 	);
 };
 
-interface IResultsList {
+export interface IResultsList {
 	historyData: IHistoryData;
 	issueStateData: IHistoryData;
 	questionData: HistoryQuestion[];
-}
-
-interface IResultsEmail extends IResultsList {
-	identityData: IIdentityData;
 }
 
 export const ResultsList = ({

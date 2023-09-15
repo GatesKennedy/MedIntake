@@ -49,7 +49,7 @@ const FormIdentity = ({
 			navProgress();
 			return;
 		}
-		console.log('handleSetData() > isValid: ', isValid);
+		console.log('handleSetData() > isValid: ', isValid); // !!!
 	};
 
 	return (

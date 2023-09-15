@@ -2,17 +2,20 @@ import React from 'react';
 import { IHistoryData, IIdentityData } from './MultiStep';
 import {
 	Box,
+	Center,
 	Divider,
 	Flex,
 	GridItem,
 	Heading,
 	SimpleGrid,
+	Spinner,
 	Text,
 } from '@chakra-ui/react';
 import { HistoryQuestion, historyQuestions } from '@/data/questionData';
 import NavGroup from './NavGroup';
 
 interface ReviewFormProps {
+	sending: boolean;
 	historyData: IHistoryData;
 	identityData: IIdentityData;
 	navRegress: () => void;
@@ -24,7 +27,7 @@ interface ReviewAnswerProps {
 }
 
 const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
-	console.log('\n answerData: ', answerData);
+	// console.log('\n answerData: ', answerData);
 	const results: HistoryQuestion[] = questionData.map((question) => {
 		return {
 			...question,
@@ -38,38 +41,37 @@ const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 	return (
 		<>
 			{results.map((result, index) => (
-				<>
-					<GridItem key={index}>
-						<Flex justify={'space-between'}>
-							<Text w={'80%'}>{result.prompt}</Text>
-							<Text
-								fontWeight={'bold'}
-								color={
-									result.answer ? 'teal.300' : 'yellow.300'
-								}
-							>
-								{result.answer ? 'Yes' : 'No'}
-							</Text>
-						</Flex>
-					</GridItem>
+				<GridItem key={index}>
+					<Flex justify={'space-between'}>
+						<Text w={'80%'}>{result.prompt}</Text>
+						<Text
+							fontWeight={'bold'}
+							color={result.answer ? 'teal.300' : 'yellow.300'}
+						>
+							{result.answer ? 'Yes' : 'No'}
+						</Text>
+					</Flex>
 					<Divider key={index + '-d'} />
-				</>
+				</GridItem>
 			))}
 		</>
 	);
 };
+
 const FormReview = ({
+	sending,
 	historyData,
 	identityData,
 	navRegress,
 	handleConfirm,
 }: ReviewFormProps) => {
-	console.log('identityData: \n', identityData);
-	console.log('historyData: \n', historyData);
+	// console.log('identityData: \n', identityData);
+	// console.log('historyData: \n', historyData);
 	return (
 		<Box
 			as='form'
 			w={'full'}
+			opacity={sending ? '0.4' : '1'}
 		>
 			<Heading
 				w='100%'
@@ -105,11 +107,18 @@ const FormReview = ({
 					answerData={{ ...identityData, ...historyData }}
 				/>
 			</SimpleGrid>
-			<NavGroup
-				stepNow={3}
-				navRegress={navRegress}
-				navProgress={handleConfirm}
-			/>
+
+			{sending ? (
+				<Center m={4}>
+					<Spinner />
+				</Center>
+			) : (
+				<NavGroup
+					stepNow={3}
+					navRegress={navRegress}
+					navProgress={handleConfirm}
+				/>
+			)}
 		</Box>
 	);
 };

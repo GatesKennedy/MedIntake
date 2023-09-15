@@ -105,7 +105,7 @@ const FormHistory = ({
 			handleData(data);
 			navProgress();
 		}
-		console.log('handleSetData() > isValid: ', isValid);
+		console.log('handleSetData() > isValid: ', isValid); // !!!
 	};
 
 	return (

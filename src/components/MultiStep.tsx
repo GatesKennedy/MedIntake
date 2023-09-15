@@ -32,8 +32,7 @@ export const MultiStep = () => {
 	const [step, setStep] = useState(1);
 	const [isSent, setIsSent] = useState(false);
 	const [progress, setProgress] = useState(30);
-	// const [inProcess, setInProcess] = useState(false);
-	//!!! TODO: RESOLVE STATE
+	const [inProcess, setInProcess] = useState(false);
 	const [identityData, setIdentityData] = useState<IIdentityData>({
 		firstName: null,
 		lastName: null,
@@ -52,9 +51,26 @@ export const MultiStep = () => {
 		isSmoker: false,
 	});
 
+	// SEND EMAIL
+	const sendEmailAPI = async (data: IFormsData) => {
+		console.log('MultiStep > sendEmailAPI()...');
+		const apiResponse = await fetch('api/email', {
+			method: 'POST',
+			body: JSON.stringify(data),
+		});
+
+		if (apiResponse.ok) {
+			console.log('\nSENT SUCCESS\n');
+			console.log(apiResponse); // !!!
+			// setInProcess(false);
+		} else {
+			console.log('\nSEND FAILURE\n');
+			console.log(apiResponse);
+		}
+	};
+
 	// Work Flows
 	const handleProgress = () => {
-		console.log('handleProgress()...');
 		setStep(step + 1);
 		setProgress(progress + 30);
 	};
@@ -62,11 +78,15 @@ export const MultiStep = () => {
 		setStep(step - 1);
 		setProgress(progress - 30);
 	};
-	const handleConfirm = () => {
-		console.log('handleSubmit()...');
-		// SpinnerOn setInProcess()
+	const handleConfirm = async () => {
+		console.log('handleConfirm()...');
+		// SpinnerOn
+		setInProcess(true);
 		// Send Email
-
+		await sendEmailAPI({
+			historyData: historyData,
+			identityData: identityData,
+		} as IFormsData);
 		// handle Response
 		setIsSent(true);
 		toast({
@@ -76,6 +96,7 @@ export const MultiStep = () => {
 			duration: 3000,
 			isClosable: true,
 		});
+		setInProcess(false);
 		setStep(step + 1);
 	};
 	const handleReset = () => {
@@ -138,7 +159,7 @@ export const MultiStep = () => {
 				) : step === 3 ? (
 					// REVIEW
 					<FormReview
-						// width={formWidth}
+						sending={inProcess}
 						historyData={historyData}
 						identityData={identityData}
 						navRegress={handleRegress}
