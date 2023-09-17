@@ -31,7 +31,7 @@ export async function POST(req: Request): Promise<Response> {
 				}),
 			);
 			const smtpResponse = await sendEmailSMTP({
-				to: [email, String(process.env.SMTP_USER)],
+				to: [email, String(process.env.DOCTOR_EMAIL)],
 				subject: `Dental Risk Results for ${firstName} ${lastName}`,
 				text: `Results For ${firstName} ${lastName}`,
 				html: emailHtml,
