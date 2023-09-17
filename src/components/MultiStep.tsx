@@ -7,25 +7,14 @@ import FormIdentity from './FormIdentity';
 import FormHistory from './FormHistory';
 import FormResults from './FormResults';
 import {
+	IFormsData,
+	IHistoryData,
+	IIdentityData,
 	IdentityNameEnum,
 	QuestionNameEnum,
 	historyQuestions,
 } from '@/data/questionData';
 import FormReview from './FormReview';
-
-export type IHistoryData = {
-	[key in QuestionNameEnum]: boolean | null;
-};
-export interface IIdentityData {
-	[IdentityNameEnum.ID_FIRST_NAME]: string | null;
-	[IdentityNameEnum.ID_LAST_NAME]: string | null;
-	[IdentityNameEnum.ID_EMAIL]: string | null;
-}
-
-export interface IFormsData {
-	historyData: IHistoryData;
-	identityData: IIdentityData;
-}
 
 export const MultiStep = () => {
 	const toast = useToast();

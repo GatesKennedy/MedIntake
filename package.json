@@ -18,6 +18,7 @@
 		"@react-email/font": "0.0.3",
 		"@react-email/head": "0.0.5",
 		"@react-email/heading": "0.0.8",
+		"@react-email/hr": "0.0.5",
 		"@react-email/html": "0.0.4",
 		"@react-email/text": "0.0.5",
 		"@types/node": "20.2.1",

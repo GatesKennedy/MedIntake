@@ -14,9 +14,9 @@ import {
 	FormErrorMessage,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-import { IIdentityData } from './MultiStep';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import NavGroup from './NavGroup';
+import { IIdentityData } from '@/data/questionData';
 
 interface IdentityFormProps {
 	identityData: IIdentityData;

@@ -1,7 +1,11 @@
-import { Heading, Text, Box, Divider } from '@chakra-ui/react';
 import React from 'react';
-import { IHistoryData, IIdentityData } from './MultiStep';
-import { HistoryQuestion, answerIsAnIssueState } from '@/data/questionData';
+import { Heading, Text, Box, Divider } from '@chakra-ui/react';
+import {
+	HistoryQuestion,
+	IHistoryData,
+	IIdentityData,
+	answerIsAnIssueState,
+} from '@/data/questionData';
 import NavGroup from './NavGroup';
 import { ResultsList } from './ResultsList';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { IHistoryData, IIdentityData } from './MultiStep';
 import {
 	Box,
 	Center,
@@ -11,7 +10,12 @@ import {
 	Spinner,
 	Text,
 } from '@chakra-ui/react';
-import { HistoryQuestion, historyQuestions } from '@/data/questionData';
+import {
+	HistoryQuestion,
+	IHistoryData,
+	IIdentityData,
+	historyQuestions,
+} from '@/data/questionData';
 import NavGroup from './NavGroup';
 
 interface ReviewFormProps {

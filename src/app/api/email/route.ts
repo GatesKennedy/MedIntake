@@ -1,7 +1,10 @@
-import { IFormsData } from '@/components/MultiStep';
 import { sendEmailSMTP } from '../../../../lib/email';
-import ResultsEmail from '@/components/emailLayout';
-import { answerIsAnIssueState, historyQuestions } from '@/data/questionData';
+import ResultsEmail from '../../../../emails/emailLayout';
+import {
+	IFormsData,
+	answerIsAnIssueState,
+	historyQuestions,
+} from '@/data/questionData';
 import { render } from '@react-email/render';
 
 export async function POST(req: Request): Promise<Response> {
@@ -23,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
 			process.env.SMTP_USER
 		) {
 			console.log(`=========\nReady To Send\n=========`);
-			const emailHtml: string = await render(
+			const emailHtml: string = render(
 				ResultsEmail({
 					historyData: historyData,
 					identityData: body.identityData,

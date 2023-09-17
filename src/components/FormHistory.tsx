@@ -1,4 +1,4 @@
-import { HistoryQuestion } from '@/data/questionData';
+import { HistoryQuestion, IHistoryData } from '@/data/questionData';
 import {
 	Heading,
 	FormControl,
@@ -11,7 +11,6 @@ import {
 	Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { IHistoryData } from './MultiStep';
 import NavGroup from './NavGroup';
 import { SubmitHandler, UseFormRegister, useForm } from 'react-hook-form';
 

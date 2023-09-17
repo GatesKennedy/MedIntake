@@ -1,5 +1,3 @@
-import { IHistoryData } from '@/components/MultiStep';
-
 export enum IdentityNameEnum {
 	ID_EMAIL = 'email',
 	ID_FIRST_NAME = 'firstName',
@@ -12,6 +10,12 @@ export type IdentityQuestion = {
 	result: string | null;
 	answer: string | null;
 };
+
+export interface IResultsList {
+	historyData: IHistoryData;
+	issueStateData: IHistoryData;
+	questionData: HistoryQuestion[];
+}
 export const identityQuestions: IdentityQuestion[] = [
 	{
 		name: 'firstName',
@@ -74,6 +78,19 @@ export type HistoryQuestion = {
 	result: HealthIssue[];
 	answer: boolean | null;
 };
+export type IHistoryData = {
+	[key in QuestionNameEnum]: boolean | null;
+};
+export interface IIdentityData {
+	[IdentityNameEnum.ID_FIRST_NAME]: string | null;
+	[IdentityNameEnum.ID_LAST_NAME]: string | null;
+	[IdentityNameEnum.ID_EMAIL]: string | null;
+}
+
+export interface IFormsData {
+	historyData: IHistoryData;
+	identityData: IIdentityData;
+}
 
 export const historyQuestions: HistoryQuestion[] = [
 	{
