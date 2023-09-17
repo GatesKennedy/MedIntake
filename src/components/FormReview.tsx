@@ -45,9 +45,16 @@ const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 	return (
 		<>
 			{results.map((result, index) => (
-				<GridItem key={index}>
-					<Flex justify={'space-between'}>
-						<Text w={'80%'}>{result.prompt}</Text>
+				<GridItem
+					key={index}
+					mx={1}
+				>
+					{index === 0 ? '' : <Divider />}
+					<Flex
+						justify={'space-between'}
+						pt={1}
+					>
+						<Text w={'86%'}>{result.prompt}</Text>
 						<Text
 							fontWeight={'bold'}
 							color={result.answer ? 'teal.300' : 'yellow.300'}
@@ -55,7 +62,6 @@ const ReviewAnswer = ({ questionData, answerData }: ReviewAnswerProps) => {
 							{result.answer ? 'Yes' : 'No'}
 						</Text>
 					</Flex>
-					<Divider key={index + '-d'} />
 				</GridItem>
 			))}
 		</>
@@ -69,8 +75,6 @@ const FormReview = ({
 	navRegress,
 	handleConfirm,
 }: ReviewFormProps) => {
-	// console.log('identityData: \n', identityData);
-	// console.log('historyData: \n', historyData);
 	return (
 		<Box
 			as='form'
@@ -89,7 +93,7 @@ const FormReview = ({
 				columns={1}
 				spacing={2}
 			>
-				<GridItem>
+				<GridItem mx={1}>
 					<Flex justify={'space-between'}>
 						<Text>Full Name: </Text>
 						<Text fontWeight={'bold'}>
@@ -98,9 +102,9 @@ const FormReview = ({
 					</Flex>
 				</GridItem>
 				<Divider />
-				<GridItem>
+				<GridItem mx={1}>
 					<Flex justify={'space-between'}>
-						<Text>Email for Results: </Text>
+						<Text>Email: </Text>
 						<Text fontWeight={'bold'}>{identityData.email}</Text>
 					</Flex>
 				</GridItem>

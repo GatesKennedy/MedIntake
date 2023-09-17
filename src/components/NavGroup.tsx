@@ -11,7 +11,7 @@ interface NavGroupProps {
 const NavGroup = ({ stepNow, navRegress, navProgress }: NavGroupProps) => {
 	return (
 		<ButtonGroup
-			mt='5%'
+			mt={8}
 			w='100%'
 		>
 			{stepNow !== 4 ? (
@@ -25,7 +25,7 @@ const NavGroup = ({ stepNow, navRegress, navProgress }: NavGroupProps) => {
 							onClick={navRegress}
 							colorScheme='teal'
 							variant='solid'
-							w='7rem'
+							w='6rem'
 							mr='5%'
 						>
 							Back
@@ -35,7 +35,7 @@ const NavGroup = ({ stepNow, navRegress, navProgress }: NavGroupProps) => {
 							isDisabled={stepNow === 3}
 							colorScheme='teal'
 							variant='outline'
-							w='7rem'
+							w='6rem'
 						>
 							{stepNow === 1 ? 'Next' : 'Review'}
 						</Button>
@@ -49,7 +49,7 @@ const NavGroup = ({ stepNow, navRegress, navProgress }: NavGroupProps) => {
 						<Button
 							colorScheme='red'
 							variant='solid'
-							w='7rem'
+							w='6rem'
 							onClick={navProgress}
 						>
 							Submit

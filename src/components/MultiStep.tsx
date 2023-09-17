@@ -39,7 +39,12 @@ export const MultiStep = () => {
 		isOver65: false,
 		isSmoker: false,
 	});
+	const isBrowser = () => typeof window !== 'undefined'; //The approach recommended by Next.js
 
+	function scrollToTop() {
+		if (!isBrowser()) return;
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 	// SEND EMAIL
 	const sendEmailAPI = async (data: IFormsData) => {
 		console.log('MultiStep > sendEmailAPI()...');
@@ -50,11 +55,10 @@ export const MultiStep = () => {
 
 		if (apiResponse.ok) {
 			console.log('\nSENT SUCCESS\n');
-			console.log(apiResponse); // !!!
-			// setInProcess(false);
+			// console.log(apiResponse); // !!!
 		} else {
 			console.log('\nSEND FAILURE\n');
-			console.log(apiResponse);
+			// console.log(apiResponse);
 		}
 	};
 
@@ -62,13 +66,14 @@ export const MultiStep = () => {
 	const handleProgress = () => {
 		setStep(step + 1);
 		setProgress(progress + 30);
+		scrollToTop();
 	};
 	const handleRegress = () => {
 		setStep(step - 1);
 		setProgress(progress - 30);
+		scrollToTop();
 	};
 	const handleConfirm = async () => {
-		console.log('handleConfirm()...');
 		// SpinnerOn
 		setInProcess(true);
 		// Send Email
@@ -87,6 +92,7 @@ export const MultiStep = () => {
 		});
 		setInProcess(false);
 		setStep(step + 1);
+		scrollToTop();
 	};
 	const handleReset = () => {
 		setStep(1);
@@ -105,18 +111,21 @@ export const MultiStep = () => {
 			[QuestionNameEnum.HAS_DENTURED_PARENTS]: false,
 		});
 		setIsSent(false);
+		scrollToTop();
 	};
 
 	return (
 		<>
 			<Box
+				id={'multiStep-root'}
 				borderWidth='1px'
 				rounded='lg'
 				shadow='1px 1px 3px rgba(0,0,0,0.3)'
-				width={{ base: '240px', md: 'lg' }}
+				width={{ base: 'full', md: 'lg' }}
 				maxWidth={800}
-				p={6}
-				m='10px auto'
+				py={6}
+				px={2}
+				mx={4}
 			>
 				{step < 4 ? (
 					<Progress

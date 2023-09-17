@@ -14,25 +14,16 @@ import Link from 'next/link';
 const Header = () => {
 	return (
 		<Center
+			m={2}
+			p={2}
 			as={'header'}
 			id={'header-root'}
-			height={'64px'}
-			width={'full'}
+			// width={'full'}
 		>
-			<VStack
-				width={'full'}
-				m={4}
-			>
-				<Flex
-					as={'nav'}
-					m={2}
-					pt={2}
-				>
-					<Heading size={'md'}>
-						Dental Risk Assessment Intake Form
-					</Heading>
-				</Flex>
-				<Divider mb={4} />
+			<VStack width={'full'}>
+				<Heading size={'lg'}>Dental Risk Assessment</Heading>
+				{/* <Heading size={'md'}> Intake Form</Heading> */}
+				{/* <Divider pt={4} /> */}
 			</VStack>
 		</Center>
 	);

@@ -4,7 +4,7 @@ import { Box, Center, HStack, VStack } from '@chakra-ui/react';
 
 export default function Home() {
 	return (
-		<Center>
+		<Center id={'page-root'}>
 			<MultiStep />
 		</Center>
 	);

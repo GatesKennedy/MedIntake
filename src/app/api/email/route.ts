@@ -8,15 +8,12 @@ import {
 import { render } from '@react-email/render';
 
 export async function POST(req: Request): Promise<Response> {
-	console.log('ROUTE: api/email > POST ...');
 	try {
 		const body: IFormsData = (await req.json()) as IFormsData;
-		console.log(`=========\nParsed Req\n=========`);
 		const {
 			identityData: { email, firstName, lastName },
 			historyData,
 		} = body;
-		console.log(`=========\nParsed Body\n=========`);
 
 		if (
 			email &&
@@ -25,7 +22,6 @@ export async function POST(req: Request): Promise<Response> {
 			historyData &&
 			process.env.SMTP_USER
 		) {
-			console.log(`=========\nReady To Send\n=========`);
 			const emailHtml: string = render(
 				ResultsEmail({
 					historyData: historyData,

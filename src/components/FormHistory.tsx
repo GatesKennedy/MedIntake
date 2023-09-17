@@ -42,7 +42,7 @@ const Question = ({ index, question, registerHook }: IQuestionProps) => {
 					alignItems={'center'}
 					justifyContent={'space-between'}
 					m={1}
-					p={2}
+					p={1}
 				>
 					<FormLabel
 						htmlFor={question.name}
@@ -55,9 +55,9 @@ const Question = ({ index, question, registerHook }: IQuestionProps) => {
 						{...registerHook(question.name, { onChange: onToggle })}
 					/>
 				</FormControl>
-				<Fade in={showAnswer}>
+				{/* <Fade in={showAnswer}>
 					<Text w={'3ch'}>{answer ? 'Yes' : 'No'}</Text>
-				</Fade>
+				</Fade> */}
 			</HStack>
 		</>
 	);
@@ -104,7 +104,6 @@ const FormHistory = ({
 			handleData(data);
 			navProgress();
 		}
-		console.log('handleSetData() > isValid: ', isValid); // !!!
 	};
 
 	return (

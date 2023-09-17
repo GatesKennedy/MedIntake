@@ -8,7 +8,7 @@ const Footer = () => {
 			id={'footer-root'}
 			height={'36px'}
 			width={'full'}
-			position={'fixed'}
+			// position={'fixed'}
 			bottom={0}
 			mb={2}
 		>
@@ -16,7 +16,7 @@ const Footer = () => {
 				w={'full'}
 				m={4}
 			>
-				<Divider />
+				{/* <Divider /> */}
 				<Text
 					align={'center'}
 					fontSize={'xs'}
