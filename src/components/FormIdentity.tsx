@@ -147,7 +147,7 @@ const FormIdentity = ({
 						<InputRightElement>
 							<Tooltip
 								label={
-									'Where would you like us to send your test results?'
+									'Where would you like us to send your results?'
 								}
 								aria-label='A tooltip'
 							>

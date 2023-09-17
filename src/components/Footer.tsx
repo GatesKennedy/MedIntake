@@ -1,5 +1,7 @@
 'use client';
-import { Center, Divider, Stack, Text } from '@chakra-ui/react';
+import { LinkIcon } from '@chakra-ui/icons';
+import { Center, Divider, HStack, Stack, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const Footer = () => {
 	return (
@@ -8,22 +10,33 @@ const Footer = () => {
 			id={'footer-root'}
 			height={'36px'}
 			width={'full'}
-			// position={'fixed'}
+			maxWidth={900}
 			bottom={0}
-			mb={2}
+			m={'auto'}
+			pb={2}
 		>
-			<Stack
-				w={'full'}
+			<HStack
 				m={4}
+				justifyContent={'space-between'}
+				width={{ base: 'full', md: 'lg' }}
+				p={2}
 			>
-				{/* <Divider /> */}
 				<Text
 					align={'center'}
 					fontSize={'xs'}
 				>
-					Dr. Peter Mclellan 2023
+					Gates Kennedy LLC, 2023
 				</Text>
-			</Stack>
+				<Text fontSize={'xs'}>
+					<LinkIcon />{' '}
+					<Link
+						href={'https://gateskennedy.com'}
+						target={'_blank'}
+					>
+						GatesKennedy.com
+					</Link>
+				</Text>
+			</HStack>
 		</Center>
 	);
 };

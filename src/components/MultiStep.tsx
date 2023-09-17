@@ -122,7 +122,7 @@ export const MultiStep = () => {
 				rounded='lg'
 				shadow='1px 1px 3px rgba(0,0,0,0.3)'
 				width={{ base: 'full', md: 'lg' }}
-				maxWidth={800}
+				maxWidth={900}
 				py={6}
 				px={2}
 				mx={4}
