@@ -51,6 +51,7 @@ export enum QuestionNameEnum {
 	IS_MEDICATED = 'isMedicated',
 	IS_OVER_SIXTYFIVE = 'isOver65',
 	IS_SMOKER = 'isSmoker',
+	IS_SUGAR_ENERGY_DRINKER = 'isSugarEnergyDrinker',
 }
 
 export const answerIsAnIssueState: IHistoryData = {
@@ -64,6 +65,7 @@ export const answerIsAnIssueState: IHistoryData = {
 	[QuestionNameEnum.HAS_VASCULAR_ISSUE]: true,
 	[QuestionNameEnum.HAS_DENTURED_PARENTS]: true,
 	[QuestionNameEnum.IS_CLEANED_RECENTLY]: false,
+	[QuestionNameEnum.IS_SUGAR_ENERGY_DRINKER]: true,
 };
 
 export interface HealthIssue {
@@ -412,6 +414,49 @@ export const historyQuestions: HistoryQuestion[] = [
 			{
 				name: 'Caffeine Addiction and Teeth Grinding',
 				desc: 'Coffee contains caffeine, which can lead to addiction and heightened stress levels. Stress-related teeth grinding (bruxism) can cause tooth damage and jaw pain.',
+				isShown: true,
+			},
+		],
+	},
+	{
+		name: QuestionNameEnum.IS_SUGAR_ENERGY_DRINKER,
+		prompt: 'Do you drink coffee with sugar or energy drinks regularly?',
+		resultPrompt: 'Drinking energy drinks with sugar',
+		answer: null,
+		result: [
+			{
+				name: 'Tooth Decay',
+				desc: 'The sugar in coffee or energy drinks provides a breeding ground for bacteria in the mouth, leading to the formation of acids that can erode tooth enamel and cause cavities.',
+				isShown: true,
+			},
+			{
+				name: 'Staining',
+				desc: 'Both coffee and energy drinks contain substances that can stain teeth over time, resulting in discoloration and aesthetic concerns.',
+				isShown: true,
+			},
+			{
+				name: 'Enamel Erosion',
+				desc: 'The acidity of energy drinks and certain types of coffee can contribute to the erosion of tooth enamel, weakening the protective outer layer of the teeth.',
+				isShown: true,
+			},
+			{
+				name: 'Dry Mouth',
+				desc: 'Caffeine, present in both coffee and energy drinks, can lead to a reduction in saliva production, causing dry mouth. Saliva plays a crucial role in maintaining oral health by neutralizing acids and aiding in the remineralization of teeth.',
+				isShown: true,
+			},
+			{
+				name: 'Bad Breath (Halitosis)',
+				desc: 'Sugary drinks can contribute to the growth of bacteria in the mouth, leading to bad breath. Additionally, the drying effect of caffeine may also contribute to oral malodor.',
+				isShown: true,
+			},
+			{
+				name: 'Gum Disease',
+				desc: 'The combination of sugar and acids in drinks can contribute to the development of gum disease by promoting bacterial growth and inflammation in the gums.',
+				isShown: true,
+			},
+			{
+				name: 'Teeth Sensitivity',
+				desc: 'Enamel erosion and tooth decay caused by the sugar and acidity in drinks can lead to increased tooth sensitivity, making the teeth more prone to discomfort, especially with hot or cold beverages.',
 				isShown: true,
 			},
 		],
