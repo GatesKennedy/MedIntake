@@ -34,6 +34,7 @@ export const MultiStep = () => {
 		hasVascularIssue: false,
 		isCleanedRecently: false,
 		isCoffeeRegular: false,
+		isSugarEnergyDrinker: false,
 		isDiabetic: false,
 		isMedicated: false,
 		isOver65: false,
@@ -109,6 +110,7 @@ export const MultiStep = () => {
 			[QuestionNameEnum.HAS_VASCULAR_ISSUE]: false,
 			[QuestionNameEnum.IS_CLEANED_RECENTLY]: false,
 			[QuestionNameEnum.HAS_DENTURED_PARENTS]: false,
+			[QuestionNameEnum.IS_SUGAR_ENERGY_DRINKER]: false,
 		});
 		setIsSent(false);
 		scrollToTop();
