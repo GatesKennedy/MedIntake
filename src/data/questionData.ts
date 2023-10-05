@@ -46,7 +46,6 @@ export enum QuestionNameEnum {
 	HAS_GUM_DISEASE = 'hasGumDisease',
 	HAS_VASCULAR_ISSUE = 'hasVascularIssue',
 	IS_CLEANED_RECENTLY = 'isCleanedRecently',
-	IS_COFFEE_REGULAR = 'isCoffeeRegular',
 	IS_DIABETIC = 'isDiabetic',
 	IS_MEDICATED = 'isMedicated',
 	IS_OVER_SIXTYFIVE = 'isOver65',
@@ -60,7 +59,6 @@ export const answerIsAnIssueState: IHistoryData = {
 	[QuestionNameEnum.IS_DIABETIC]: true,
 	[QuestionNameEnum.IS_MEDICATED]: true,
 	[QuestionNameEnum.HAS_GUM_DISEASE]: true,
-	[QuestionNameEnum.IS_COFFEE_REGULAR]: true,
 	[QuestionNameEnum.IS_OVER_SIXTYFIVE]: true,
 	[QuestionNameEnum.HAS_VASCULAR_ISSUE]: true,
 	[QuestionNameEnum.HAS_DENTURED_PARENTS]: true,
@@ -376,51 +374,8 @@ export const historyQuestions: HistoryQuestion[] = [
 		],
 	},
 	{
-		name: QuestionNameEnum.IS_COFFEE_REGULAR,
-		prompt: 'Do you drink coffee regularly?',
-		resultPrompt: 'Drinking coffee regularly',
-		answer: null,
-		result: [
-			{
-				name: 'Tooth Staining',
-				desc: 'Coffee is a highly pigmented beverage that can cause yellow or brown stains on tooth enamel, leading to a dull or discolored smile.',
-				isShown: true,
-			},
-			{
-				name: 'Enamel Erosion',
-				desc: 'Coffee is acidic, and frequent consumption can weaken tooth enamel over time. Weakened enamel is more susceptible to tooth decay and sensitivity.',
-				isShown: true,
-			},
-			{
-				name: 'Bad Breath (Halitosis)',
-				desc: "Coffee's strong odor can contribute to bad breath, and it can also reduce saliva production, which normally helps to cleanse the mouth of odor-causing bacteria.",
-				isShown: true,
-			},
-			{
-				name: 'Dry Mouth',
-				desc: 'Caffeine in coffee can contribute to dry mouth (xerostomia), reducing saliva flow. A dry mouth increases the risk of tooth decay and gum disease.',
-				isShown: true,
-			},
-			{
-				name: 'Increased Risk of Stains from Other Sources',
-				desc: 'Regular coffee consumption can make teeth more porous, increasing their susceptibility to staining from other foods and drinks, such as tea, red wine, and berries.',
-				isShown: true,
-			},
-			{
-				name: 'Gum Irritation',
-				desc: "Coffee's acidity and heat can irritate the gums, leading to discomfort and potentially contributing to gum disease over time.",
-				isShown: true,
-			},
-			{
-				name: 'Caffeine Addiction and Teeth Grinding',
-				desc: 'Coffee contains caffeine, which can lead to addiction and heightened stress levels. Stress-related teeth grinding (bruxism) can cause tooth damage and jaw pain.',
-				isShown: true,
-			},
-		],
-	},
-	{
 		name: QuestionNameEnum.IS_SUGAR_ENERGY_DRINKER,
-		prompt: 'Do you drink coffee with sugar or energy drinks regularly?',
+		prompt: 'Do you drink coffee with sugar or energy drinks?',
 		resultPrompt: 'Drinking energy drinks with sugar',
 		answer: null,
 		result: [
