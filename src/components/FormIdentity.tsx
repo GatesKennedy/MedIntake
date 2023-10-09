@@ -64,6 +64,7 @@ const FormIdentity = ({
 					textAlign={'center'}
 					fontWeight='normal'
 					mb='2%'
+					data-test-id= 'form-identity-heading'
 				>
 					Welcome!
 				</Heading>

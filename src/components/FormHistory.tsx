@@ -117,6 +117,7 @@ const FormHistory = ({
 				textAlign={'center'}
 				fontWeight='normal'
 				mb='2%'
+				data-test-id= 'form-identity-heading'
 			>
 				Questions
 			</Heading>
