@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'Dental Risk',
+	title: 'Dental Risk Demo',
 	description: 'Dental Assessment Intake Form',
 };
 export type ChildProps = {

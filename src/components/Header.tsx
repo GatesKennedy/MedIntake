@@ -1,15 +1,6 @@
 'use client';
-import {
-	Center,
-	Divider,
-	Flex,
-	HStack,
-	Heading,
-	StackDivider,
-	VStack,
-} from '@chakra-ui/react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { STR } from '@/data/stringConstants';
+import { Center, Heading, VStack } from '@chakra-ui/react';
 
 const Header = () => {
 	return (
@@ -18,12 +9,9 @@ const Header = () => {
 			p={2}
 			as={'header'}
 			id={'header-root'}
-			// width={'full'}
 		>
 			<VStack width={'full'}>
-				<Heading size={'lg'}>Dental Risk Assessment</Heading>
-				{/* <Heading size={'md'}> Intake Form</Heading> */}
-				{/* <Divider pt={4} /> */}
+				<Heading size={'lg'}>{STR.RESULT_TITLE}</Heading>
 			</VStack>
 		</Center>
 	);
