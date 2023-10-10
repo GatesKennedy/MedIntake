@@ -28,6 +28,7 @@ const FormResults = ({
 				w='100%'
 				textAlign={'center'}
 				fontWeight='normal'
+				data-test-id='form-identity-heading'
 			>
 				Complete!
 			</Heading>
