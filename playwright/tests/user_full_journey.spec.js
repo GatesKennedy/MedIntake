@@ -1,23 +1,23 @@
 import { test } from "@playwright/test"
 import { v4 as uuidv4 } from "uuid"
-import { LandingPage } from "../page-objects/LandingPage.js"
+import { MainPage } from "../page-objects/MainPage.js"
 
 test('User full journey', async ({ page }) => {
-  const landingPage = new LandingPage(page)
-  await landingPage.visit()
-  await landingPage.assertWelcome()
+  const mainPage = new MainPage(page)
+  await mainPage.visit()
+  await mainPage.assertWelcome()
   
   const firstName = uuidv4()
   const lastName = uuidv4()
   const email = uuidv4() + "@example.com"
-  await landingPage.registerNewUser(firstName, lastName, email)
-  await landingPage.assertQuestions()
-  await landingPage.backToWelcome()
-  await landingPage.returnToQuestions()
-  await landingPage.assertReview()
-  await landingPage.answerQuestions()
-  await landingPage.submitAnswers()
-  await landingPage.assertComplete()
-  await landingPage.takeAgain()
-  await landingPage.assertWelcome()
+  await mainPage.registerNewUser(firstName, lastName, email)
+  await mainPage.assertQuestions()
+  await mainPage.backToWelcome()
+  await mainPage.returnToQuestions()
+  await mainPage.assertReview()
+  await mainPage.answerQuestions()
+  await mainPage.submitAnswers()
+  await mainPage.assertComplete()
+  await mainPage.takeAgain()
+  await mainPage.assertWelcome()
 })
